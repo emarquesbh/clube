@@ -14,43 +14,122 @@
         <p class="page-subtitle">{{ categoria.nome }}</p>
     </div>
     
+    <!-- Breadcrumb Navigation -->
+    <div class="content-section fade-in">
+        <nav aria-label="Navegação estrutural">
+            <ol style="list-style: none; padding: 0; display: flex; gap: var(--space-2); align-items: center; font-size: var(--font-small); color: var(--text-secondary);">
+                <li>
+                    <a href="{% url 'pages:index' %}" style="color: var(--primary-color); text-decoration: none;">
+                        🏠 Início
+                    </a>
+                </li>
+                <li style="margin: 0 var(--space-2);">→</li>
+                <li>
+                    <a href="{% url 'pages:pagina_categoria' categoria_slug=categoria.slug %}" 
+                       style="color: var(--primary-color); text-decoration: none;">
+                        {{ categoria.nome }}
+                    </a>
+                </li>
+                <li style="margin: 0 var(--space-2);">→</li>
+                <li style="color: var(--text-color); font-weight: 500;">
+                    {{ pagina.titulo }}
+                </li>
+            </ol>
+        </nav>
+    </div>
+    
     <!-- Conteúdo da Página -->
     <div class="content-section fade-in">
         <div class="row">
             <div class="col-12">
-                {{ pagina.conteudo|safe }}
+                <!-- Conteúdo rico da página -->
+                <div style="font-size: var(--font-base); line-height: 1.7;">
+                    {{ pagina.conteudo|safe }}
+                </div>
+                
+                <!-- Informações de atualização -->
+                {% if pagina.data_atualizacao %}
+                    <div style="margin-top: var(--space-8); padding-top: var(--space-4); border-top: 1px solid var(--border-color); font-size: var(--font-small); color: var(--text-secondary);">
+                        <p>
+                            📅 <strong>Última atualização:</strong> 
+                            {{ pagina.data_atualizacao|date:"d/m/Y às H:i" }}
+                        </p>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>
     
-    <!-- Navegação -->
+    <!-- Navegação entre páginas -->
     <div class="content-section fade-in">
         <div class="text-center">
             <a href="{% url 'pages:pagina_categoria' categoria_slug=categoria.slug %}" 
-               class="btn btn-secondary">← Voltar para {{ categoria.nome }}</a>
-            <a href="{% url 'pages:index' %}" class="btn btn-primary">Início</a>
+               class="btn btn-secondary">
+                ← Voltar para {{ categoria.nome }}
+            </a>
+            <a href="{% url 'pages:index' %}" class="btn btn-primary">
+                🏠 Página Inicial
+            </a>
         </div>
     </div>
     
     <!-- Páginas Relacionadas -->
     {% if categoria.paginas_publicadas.count > 1 %}
-    <div class="content-section fade-in">
-        <h2>Outras Atividades de {{ categoria.nome }}</h2>
-        <div class="row">
-            {% for outra_pagina in categoria.paginas_publicadas %}
-                {% if outra_pagina.slug != pagina.slug %}
-                    <div class="col-6">
-                        <div class="category-card" style="height: 100%; margin-bottom: var(--space-4);">
-                            <h3>{{ outra_pagina.titulo }}</h3>
-                            <p>{{ outra_pagina.conteudo|truncatewords:15|striptags }}</p>
-                            <a href="{% url 'pages:pagina_detalhe' categoria_slug=categoria.slug pagina_slug=outra_pagina.slug %}" 
-                               class="btn btn-primary btn-sm">Ver Detalhes</a>
+        <div class="content-section fade-in">
+            <h2>Outras Atividades de {{ categoria.nome }}</h2>
+            <div class="row">
+                {% for outra_pagina in categoria.paginas_publicadas %}
+                    {% if outra_pagina.slug != pagina.slug %}
+                        <div class="col-6">
+                            <div class="category-card" style="height: 100%; margin-bottom: var(--space-4);">
+                                <h3>{{ outra_pagina.titulo }}</h3>
+                                <div style="margin-bottom: var(--space-4);">
+                                    {{ outra_pagina.conteudo|truncatewords:20|striptags }}
+                                </div>
+                                <a href="{% url 'pages:pagina_detalhe' categoria_slug=categoria.slug pagina_slug=outra_pagina.slug %}" 
+                                   class="btn btn-primary btn-sm">Ver Detalhes</a>
+                            </div>
                         </div>
-                    </div>
-                {% endif %}
-            {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    
+    <!-- Seção de Ação -->
+    <div class="content-section fade-in">
+        <div class="text-center">
+            <h2>Interessado em Participar?</h2>
+            <p>Entre em contato conosco para mais informações sobre esta atividade ou para se inscrever.</p>
+            
+            <div style="margin-top: var(--space-6);">
+                {% for cat in categorias_globais %}
+                    {% if 'contato' in cat.nome|lower %}
+                        <a href="{% url 'pages:pagina_categoria' categoria_slug=cat.slug %}" 
+                           class="btn btn-primary btn-lg">
+                            📞 Entre em Contato
+                        </a>
+                    {% endif %}
+                {% endfor %}
+                
+                <a href="{% url 'pages:index' %}" class="btn btn-secondary">
+                    🏠 Voltar ao Início
+                </a>
+            </div>
         </div>
     </div>
-    {% endif %}
+    
+    <!-- Informações de Acessibilidade -->
+    <div class="content-section fade-in" style="background: var(--card-bg); border-left: 4px solid var(--primary-color);">
+        <h3>♿ Acessibilidade</h3>
+        <p>Esta página foi desenvolvida seguindo as diretrizes de acessibilidade. Use os seguintes atalhos:</p>
+        <ul style="font-size: var(--font-small); color: var(--text-secondary);">
+            <li><kbd>Alt + R</kbd> - Ouvir o conteúdo da página</li>
+            <li><kbd>Alt + T</kbd> - Alternar tema claro/escuro</li>
+            <li><kbd>Alt + +</kbd> - Aumentar tamanho da fonte</li>
+            <li><kbd>Alt + -</kbd> - Diminuir tamanho da fonte</li>
+            <li><kbd>Tab</kbd> - Navegar entre elementos</li>
+        </ul>
+    </div>
 </div>
 {% endblock %}

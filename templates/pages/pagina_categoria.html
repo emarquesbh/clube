@@ -10,34 +10,135 @@
 <div class="container">
     <!-- Page Header -->
     <div class="page-header fade-in">
-        <h1 class="page-title">{{ categoria.nome }}</h1>
-        <p class="page-subtitle">Descubra todas as atividades e informações sobre {{ categoria.nome|lower }}</p>
+        <h1 class="page-title">
+            {% if 'fisic' in categoria.nome|lower %}
+                🏃‍♂️ {{ categoria.nome }}
+            {% elif 'cultura' in categoria.nome|lower or 'arte' in categoria.nome|lower %}
+                🎨 {{ categoria.nome }}
+            {% elif 'mente' in categoria.nome|lower or 'corpo' in categoria.nome|lower %}
+                🧘‍♀️ {{ categoria.nome }}
+            {% elif 'sobre' in categoria.nome|lower %}
+                ℹ️ {{ categoria.nome }}
+            {% elif 'contato' in categoria.nome|lower %}
+                📞 {{ categoria.nome }}
+            {% else %}
+                📋 {{ categoria.nome }}
+            {% endif %}
+        </h1>
+        <p class="page-subtitle">
+            {% if 'fisic' in categoria.nome|lower %}
+                Mantenha seu corpo ativo e saudável com nossas atividades físicas adaptadas para todas as idades
+            {% elif 'cultura' in categoria.nome|lower or 'arte' in categoria.nome|lower %}
+                Desperte sua criatividade e explore o mundo das artes em suas diversas manifestações
+            {% elif 'mente' in categoria.nome|lower or 'corpo' in categoria.nome|lower %}
+                Práticas integrativas que promovem o equilíbrio entre corpo, mente e espírito
+            {% elif 'sobre' in categoria.nome|lower %}
+                Conheça nossa história, missão e os valores que nos guiam no dia a dia
+            {% elif 'contato' in categoria.nome|lower %}
+                Entre em contato conosco para mais informações, dúvidas ou sugestões. Estamos prontos para ajudar!
+            {% else %}
+                Descubra todas as atividades e informações sobre {{ categoria.nome|lower }}
+            {% endif %}
+        </p>
     </div>
     
     <!-- Conteúdo da Categoria -->
-    <div class="content-section fade-in">
-        {% if paginas_associadas %}
+    {% if paginas_associadas %}
+        <div class="content-section fade-in">
             <h2>Atividades Disponíveis</h2>
             <div class="row">
                 {% for pagina in paginas_associadas %}
                     <div class="col-6">
-                        <div class="category-card" style="height: 100%; margin-bottom: var(--space-4);">
+                        <div class="category-card" style="height: 100%; margin-bottom: var(--space-6);">
                             <h3>{{ pagina.titulo }}</h3>
-                            <p>{{ pagina.conteudo|truncatewords:20|striptags }}</p>
+                            <div style="margin-bottom: var(--space-4);">
+                                {{ pagina.conteudo|truncatewords:25|striptags }}
+                            </div>
                             <a href="{% url 'pages:pagina_detalhe' categoria_slug=categoria.slug pagina_slug=pagina.slug %}" 
                                class="btn btn-primary">Ver Detalhes</a>
                         </div>
                     </div>
                 {% endfor %}
             </div>
-        {% else %}
+        </div>
+    {% else %}
+        <!-- Conteúdo padrão quando não há páginas associadas -->
+        <div class="content-section fade-in">
             <div class="text-center">
                 <h2>Em Breve</h2>
                 <p>Estamos preparando conteúdos especiais para esta seção. Volte em breve para descobrir todas as novidades!</p>
-                <a href="{% url 'pages:index' %}" class="btn btn-primary">Voltar ao Início</a>
+                
+                {% if 'fisic' in categoria.nome|lower %}
+                    <div class="row" style="margin-top: var(--space-8);">
+                        <div class="col-4">
+                            <div class="category-card">
+                                <h3>🚶‍♀️ Caminhadas</h3>
+                                <p>Caminhadas orientadas em grupo para melhorar a resistência cardiovascular.</p>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="category-card">
+                                <h3>🤸‍♂️ Alongamento</h3>
+                                <p>Exercícios de flexibilidade para melhorar a amplitude de movimento.</p>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="category-card">
+                                <h3>💃 Dança</h3>
+                                <p>Aulas de dança adaptadas que melhoram coordenação e humor.</p>
+                            </div>
+                        </div>
+                    </div>
+                {% elif 'cultura' in categoria.nome|lower or 'arte' in categoria.nome|lower %}
+                    <div class="row" style="margin-top: var(--space-8);">
+                        <div class="col-4">
+                            <div class="category-card">
+                                <h3>🎭 Teatro</h3>
+                                <p>Oficinas de teatro com exercícios de expressão e dramatização.</p>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="category-card">
+                                <h3>🎵 Música</h3>
+                                <p>Coral e atividades musicais para exercitar a voz em grupo.</p>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="category-card">
+                                <h3>🖌️ Pintura</h3>
+                                <p>Aulas de pintura e desenho para explorar a criatividade.</p>
+                            </div>
+                        </div>
+                    </div>
+                {% elif 'mente' in categoria.nome|lower or 'corpo' in categoria.nome|lower %}
+                    <div class="row" style="margin-top: var(--space-8);">
+                        <div class="col-4">
+                            <div class="category-card">
+                                <h3>🧘‍♀️ Meditação</h3>
+                                <p>Práticas de meditação e mindfulness para reduzir o estresse.</p>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="category-card">
+                                <h3>🕉️ Yoga</h3>
+                                <p>Yoga suave com foco em posturas adaptadas para todas as idades.</p>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="category-card">
+                                <h3>☯️ Tai Chi</h3>
+                                <p>Arte marcial chinesa com movimentos lentos e fluidos.</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                
+                <div style="margin-top: var(--space-8);">
+                    <a href="{% url 'pages:index' %}" class="btn btn-primary">Voltar ao Início</a>
+                </div>
             </div>
-        {% endif %}
-    </div>
+        </div>
+    {% endif %}
     
     <!-- Informações Gerais -->
     <div class="content-section fade-in">
@@ -47,28 +148,143 @@
                 <h3>📋 Como Participar</h3>
                 <ul>
                     <li>Faça sua inscrição na secretaria do clube</li>
-                    <li>Apresente documento de identidade</li>
+                    <li>Apresente documento de identidade (RG ou CNH)</li>
                     <li>Participe das atividades nos horários estabelecidos</li>
+                    {% if 'fisic' in categoria.nome|lower %}
+                        <li>Use roupas adequadas para exercícios</li>
+                        <li>Traga sua garrafa de água</li>
+                    {% elif 'cultura' in categoria.nome|lower or 'arte' in categoria.nome|lower %}
+                        <li>Alguns materiais são fornecidos pelo clube</li>
+                        <li>A frequência é flexível</li>
+                    {% elif 'mente' in categoria.nome|lower or 'corpo' in categoria.nome|lower %}
+                        <li>Venha com roupas confortáveis</li>
+                        <li>Mantenha a mente aberta para novas experiências</li>
+                    {% endif %}
                 </ul>
             </div>
             <div class="col-6">
                 <h3>ℹ️ Informações Gerais</h3>
                 <ul>
-                    <li>Todas as atividades são gratuitas</li>
+                    <li>Todas as atividades são gratuitas para membros</li>
                     <li>Ambiente seguro e acolhedor</li>
-                    <li>Profissionais qualificados</li>
+                    <li>Profissionais qualificados e experientes</li>
+                    {% if 'fisic' in categoria.nome|lower %}
+                        <li>Atividades adaptadas para diferentes níveis</li>
+                        <li>Avaliação física inicial recomendada</li>
+                    {% elif 'cultura' in categoria.nome|lower or 'arte' in categoria.nome|lower %}
+                        <li>Não é necessária experiência prévia</li>
+                        <li>Oportunidades de apresentações</li>
+                    {% elif 'mente' in categoria.nome|lower or 'corpo' in categoria.nome|lower %}
+                        <li>Práticas baseadas em técnicas milenares</li>
+                        <li>Foco no bem-estar integral</li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
         
-        <div class="text-center mt-6">
+        <div class="text-center mt-8">
             {% for cat in categorias_globais %}
                 {% if 'contato' in cat.nome|lower %}
-                    <a href="{% url 'pages:pagina_categoria' categoria_slug=cat.slug %}" class="btn btn-primary">Entre em Contato</a>
+                    <a href="{% url 'pages:pagina_categoria' categoria_slug=cat.slug %}" 
+                       class="btn btn-primary">Entre em Contato</a>
                 {% endif %}
             {% endfor %}
             <a href="{% url 'pages:index' %}" class="btn btn-secondary">Voltar ao Início</a>
         </div>
     </div>
+    
+    <!-- Benefícios (apenas para categorias específicas) -->
+    {% if 'fisic' in categoria.nome|lower or 'cultura' in categoria.nome|lower or 'arte' in categoria.nome|lower or 'mente' in categoria.nome|lower or 'corpo' in categoria.nome|lower %}
+        <div class="content-section fade-in">
+            <h2>Benefícios</h2>
+            <div class="row">
+                {% if 'fisic' in categoria.nome|lower %}
+                    <div class="col-4">
+                        <h3>💪 Saúde Física</h3>
+                        <ul>
+                            <li>Fortalecimento muscular e ósseo</li>
+                            <li>Melhora da coordenação motora</li>
+                            <li>Aumento da flexibilidade</li>
+                            <li>Controle de peso</li>
+                        </ul>
+                    </div>
+                    <div class="col-4">
+                        <h3>🧠 Saúde Mental</h3>
+                        <ul>
+                            <li>Redução do estresse</li>
+                            <li>Melhora do humor</li>
+                            <li>Aumento da autoestima</li>
+                            <li>Combate à depressão</li>
+                        </ul>
+                    </div>
+                    <div class="col-4">
+                        <h3>🤝 Socialização</h3>
+                        <ul>
+                            <li>Novas amizades</li>
+                            <li>Senso de comunidade</li>
+                            <li>Motivação em grupo</li>
+                            <li>Redução da solidão</li>
+                        </ul>
+                    </div>
+                {% elif 'cultura' in categoria.nome|lower or 'arte' in categoria.nome|lower %}
+                    <div class="col-4">
+                        <h3>🧠 Desenvolvimento Cognitivo</h3>
+                        <ul>
+                            <li>Estimula a criatividade</li>
+                            <li>Melhora a concentração</li>
+                            <li>Desenvolve a memória</li>
+                            <li>Amplia o vocabulário</li>
+                        </ul>
+                    </div>
+                    <div class="col-4">
+                        <h3>😊 Bem-estar Emocional</h3>
+                        <ul>
+                            <li>Reduz o estresse</li>
+                            <li>Aumenta a autoestima</li>
+                            <li>Proporciona prazer</li>
+                            <li>Permite expressão de sentimentos</li>
+                        </ul>
+                    </div>
+                    <div class="col-4">
+                        <h3>🤝 Integração Social</h3>
+                        <ul>
+                            <li>Fortalece vínculos</li>
+                            <li>Compartilhamento de experiências</li>
+                            <li>Desenvolve empatia</li>
+                            <li>Senso de pertencimento</li>
+                        </ul>
+                    </div>
+                {% elif 'mente' in categoria.nome|lower or 'corpo' in categoria.nome|lower %}
+                    <div class="col-4">
+                        <h3>🧠 Saúde Mental</h3>
+                        <ul>
+                            <li>Redução do estresse e ansiedade</li>
+                            <li>Melhora da concentração</li>
+                            <li>Controle de estados de humor</li>
+                            <li>Aumento da autoestima</li>
+                        </ul>
+                    </div>
+                    <div class="col-4">
+                        <h3>💪 Saúde Física</h3>
+                        <ul>
+                            <li>Melhora da postura</li>
+                            <li>Aumento da flexibilidade</li>
+                            <li>Fortalecimento muscular suave</li>
+                            <li>Alívio de dores crônicas</li>
+                        </ul>
+                    </div>
+                    <div class="col-4">
+                        <h3>✨ Bem-estar Integral</h3>
+                        <ul>
+                            <li>Autoconhecimento profundo</li>
+                            <li>Paz interior</li>
+                            <li>Conexão mente-corpo-espírito</li>
+                            <li>Melhora da qualidade do sono</li>
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
 </div>
 {% endblock %}

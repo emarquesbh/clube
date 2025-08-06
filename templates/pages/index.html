@@ -26,7 +26,8 @@
         
         <div class="categories-grid">
             {% for categoria in categorias_globais %}
-                <a href="{% url 'pages:pagina_categoria' categoria_slug=categoria.slug %}" class="category-card fade-in">
+                <a href="{% url 'pages:pagina_categoria' categoria_slug=categoria.slug %}" 
+                   class="category-card fade-in">
                     <span class="category-icon" aria-hidden="true">
                         {% if 'fisic' in categoria.nome|lower %}
                             🏃‍♂️
@@ -34,6 +35,10 @@
                             🎨
                         {% elif 'mente' in categoria.nome|lower or 'corpo' in categoria.nome|lower %}
                             🧘‍♀️
+                        {% elif 'sobre' in categoria.nome|lower %}
+                            ℹ️
+                        {% elif 'contato' in categoria.nome|lower %}
+                            📞
                         {% else %}
                             📋
                         {% endif %}
@@ -41,17 +46,43 @@
                     <h3>{{ categoria.nome }}</h3>
                     <p>
                         {% if 'fisic' in categoria.nome|lower %}
-                            Exercícios e práticas esportivas para manter o corpo ativo e saudável.
+                            Exercícios e práticas esportivas para manter o corpo ativo e saudável. Caminhadas, alongamentos, dança e muito mais.
                         {% elif 'cultura' in categoria.nome|lower or 'arte' in categoria.nome|lower %}
-                            Expressão artística e cultural através de oficinas e atividades criativas.
+                            Expressão artística e cultural através de oficinas, apresentações e atividades criativas que estimulam a mente.
                         {% elif 'mente' in categoria.nome|lower or 'corpo' in categoria.nome|lower %}
-                            Práticas integrativas que conectam corpo e mente, promovendo equilíbrio.
+                            Práticas integrativas que conectam corpo e mente, promovendo equilíbrio, relaxamento e bem-estar integral.
+                        {% elif 'sobre' in categoria.nome|lower %}
+                            Conheça nossa história, missão e os valores que nos guiam no dia a dia.
+                        {% elif 'contato' in categoria.nome|lower %}
+                            Entre em contato conosco para mais informações, dúvidas ou sugestões.
                         {% else %}
                             Descubra mais sobre {{ categoria.nome|lower }}.
                         {% endif %}
                     </p>
                     <span class="btn btn-secondary btn-sm">Ver Atividades</span>
                 </a>
+            {% empty %}
+                <!-- Fallback caso não haja categorias -->
+                <div class="category-card fade-in">
+                    <span class="category-icon" aria-hidden="true">🏃‍♂️</span>
+                    <h3>Atividades Físicas</h3>
+                    <p>Exercícios e práticas esportivas para manter o corpo ativo e saudável.</p>
+                    <span class="btn btn-secondary btn-sm">Em Breve</span>
+                </div>
+                
+                <div class="category-card fade-in">
+                    <span class="category-icon" aria-hidden="true">🎨</span>
+                    <h3>Cultura e Arte</h3>
+                    <p>Expressão artística e cultural através de oficinas e atividades criativas.</p>
+                    <span class="btn btn-secondary btn-sm">Em Breve</span>
+                </div>
+                
+                <div class="category-card fade-in">
+                    <span class="category-icon" aria-hidden="true">🧘‍♀️</span>
+                    <h3>Corpo e Mente em Ação</h3>
+                    <p>Práticas integrativas que conectam corpo e mente, promovendo equilíbrio.</p>
+                    <span class="btn btn-secondary btn-sm">Em Breve</span>
+                </div>
             {% endfor %}
         </div>
     </section>
@@ -68,10 +99,54 @@
                 <div class="text-center mt-6">
                     {% for categoria in categorias_globais %}
                         {% if 'sobre' in categoria.nome|lower %}
-                            <a href="{% url 'pages:pagina_categoria' categoria_slug=categoria.slug %}" class="btn btn-primary">Saiba Mais Sobre Nós</a>
+                            <a href="{% url 'pages:pagina_categoria' categoria_slug=categoria.slug %}" 
+                               class="btn btn-primary">Saiba Mais Sobre Nós</a>
+                        {% endif %}
+                    {% endfor %}
+                    
+                    {% for categoria in categorias_globais %}
+                        {% if 'contato' in categoria.nome|lower %}
+                            <a href="{% url 'pages:pagina_categoria' categoria_slug=categoria.slug %}" 
+                               class="btn btn-secondary">Entre em Contato</a>
                         {% endif %}
                     {% endfor %}
                 </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Seção de Informações Importantes -->
+    <section class="content-section fade-in">
+        <h2>Informações Importantes</h2>
+        <div class="row">
+            <div class="col-4">
+                <h3>📋 Como Participar</h3>
+                <ul>
+                    <li>Faça sua inscrição na secretaria do clube</li>
+                    <li>Apresente documento de identidade</li>
+                    <li>Participe das atividades nos horários estabelecidos</li>
+                    <li>Venha com roupas adequadas para cada atividade</li>
+                </ul>
+            </div>
+            
+            <div class="col-4">
+                <h3>ℹ️ Informações Gerais</h3>
+                <ul>
+                    <li>Todas as atividades são gratuitas</li>
+                    <li>Ambiente seguro e acolhedor</li>
+                    <li>Profissionais qualificados</li>
+                    <li>Horários flexíveis</li>
+                </ul>
+            </div>
+            
+            <div class="col-4">
+                <h3>🎯 Nossos Objetivos</h3>
+                <ul>
+                    <li>Promover a convivência social</li>
+                    <li>Melhorar a qualidade de vida</li>
+                    <li>Estimular o desenvolvimento pessoal</li>
+                    <li>Fortalecer laços de amizade</li>
+                </ul>
             </div>
         </div>
     </section>

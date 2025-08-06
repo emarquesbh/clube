@@ -9,19 +9,28 @@
     
     <title>{% block title %}Clube da Amizade Pe. Antônio Gonçalves{% endblock %}</title>
     
+    <!-- CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    <!-- Fontes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    
     {% block extra_css %}{% endblock %}
 </head>
 <body>
+    <!-- Skip Link para Acessibilidade -->
     <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
     
+    <!-- Header -->
     <header class="header">
         <div class="container">
             <div class="header-content">
+                <!-- Logo -->
                 <div class="logo">
                     <a href="{% url 'pages:index' %}">
                         <h1>Clube da Amizade</h1>
@@ -29,20 +38,25 @@
                     </a>
                 </div>
                 
+                <!-- Botão Menu Mobile -->
                 <button class="nav-toggle" aria-expanded="false" aria-label="Abrir menu de navegação">
                     <span class="bar"></span>
                     <span class="bar"></span>
                     <span class="bar"></span>
                 </button>
                 
+                <!-- Navegação Principal -->
                 <nav class="main-nav" role="navigation">
                     <ul class="nav-menu">
+                        <!-- Início -->
                         <li class="nav-item">
-                            <a href="{% url 'pages:index' %}" class="nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}">
+                            <a href="{% url 'pages:index' %}" 
+                               class="nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}">
                                 Início
                             </a>
                         </li>
                         
+                        <!-- Categorias Dinâmicas -->
                         {% for categoria in categorias_globais %}
                             <li class="nav-item {% if categoria.paginas_publicadas %}has-dropdown{% endif %}">
                                 <a href="{% url 'pages:pagina_categoria' categoria_slug=categoria.slug %}" 
@@ -50,6 +64,7 @@
                                     {{ categoria.nome }}
                                 </a>
                                 
+                                <!-- Dropdown com páginas da categoria -->
                                 {% if categoria.paginas_publicadas %}
                                     <ul class="dropdown-menu">
                                         {% for pagina in categoria.paginas_publicadas %}
@@ -66,17 +81,26 @@
                         {% endfor %}
                     </ul>
                     
+                    <!-- Ferramentas de Acessibilidade -->
                     <div class="accessibility-tools">
-                        <button id="theme-toggle" class="accessibility-btn" aria-label="Alternar tema">
+                        <button id="theme-toggle" class="accessibility-btn" 
+                                aria-label="Alternar tema claro/escuro" 
+                                title="Alternar tema (Alt + T)">
                             🌙 Escuro
                         </button>
-                        <button id="increase-font" class="accessibility-btn" aria-label="Aumentar fonte">
+                        <button id="increase-font" class="accessibility-btn" 
+                                aria-label="Aumentar tamanho da fonte"
+                                title="Aumentar fonte (Alt + +)">
                             A+
                         </button>
-                        <button id="decrease-font" class="accessibility-btn" aria-label="Diminuir fonte">
+                        <button id="decrease-font" class="accessibility-btn" 
+                                aria-label="Diminuir tamanho da fonte"
+                                title="Diminuir fonte (Alt + -)">
                             A-
                         </button>
-                        <button id="reset-font" class="accessibility-btn" aria-label="Resetar fonte">
+                        <button id="reset-font" class="accessibility-btn" 
+                                aria-label="Resetar tamanho da fonte"
+                                title="Resetar fonte (Alt + 0)">
                             A
                         </button>
                     </div>
@@ -85,11 +109,13 @@
         </div>
     </header>
     
+    <!-- Conteúdo Principal -->
     <main id="main-content" class="main-content">
         {% block content %}
         {% endblock %}
     </main>
     
+    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -99,6 +125,7 @@
         </div>
     </footer>
     
+    <!-- Scripts JavaScript -->
     <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'js/accessibility.js' %}"></script>
     {% block extra_js %}{% endblock %}
