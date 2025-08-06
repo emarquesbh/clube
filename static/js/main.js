@@ -1,386 +1,353 @@
-// static/js/main.js
+<!-- clube_da_amizade/static/js/main.js -->
 /**
- * CLUBE DA AMIZADE - SCRIPT PRINCIPAL
- * Versão: 1.3 - CORREÇÕES ESPECÍFICAS
+ * CLUBE DA AMIZADE PE. ANTÔNIO GONÇALVES
+ * Sistema Principal de Navegação e Interface
+ * Versão: 3.0 - Reconstrução Completa
  */
 
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('🎉 Site carregado!');
+class ClubeAmizade {
+    constructor() {
+        this.body = document.body;
+        this.isMenuOpen = false; // Estado do menu mobile
+        
+        // Inicializa todas as funcionalidades ao carregar a classe
+        this.init();
+    }
     
-    // ========================================
-    // 1. GARANTIR TEMA CLARO INICIAL
-    // ========================================
-    const body = document.body;
-    
-    // FORÇA TEMA CLARO NO INÍCIO - INCLUINDO ADMIN
-    body.classList.remove('dark-mode');
-    body.classList.add('admin-theme-override'); // Para páginas admin
-    
-    // Só aplica tema salvo se for explicitamente escuro E não for página admin
-    const isAdminPage = window.location.pathname.includes('/admin/');
-    const savedTheme = localStorage.getItem('clubeAmizadeTheme');
-    
-    if (savedTheme === 'dark' && !isAdminPage) {
-        body.classList.add('dark-mode');
-        body.classList.remove('admin-theme-override');
+    init() {
+        console.log('🎉 Clube da Amizade - Sistema principal inicializado!');
+        
+        this.initNavigation();     // Gerencia o menu e dropdowns
+        this.initSmoothScroll();   // Rolagem suave para links internos
+        this.initAnimations();     // Efeitos de animação ao rolar
+        this.initKeyboardNavigation(); // Navegação aprimorada via teclado
+        
+        console.log('✅ Sistema principal carregado e pronto para uso!');
     }
     
     // ========================================
-    // 2. BOTÃO TEMA ESCURO/CLARO - CORRIGIDO
+    // NAVEGAÇÃO PRINCIPAL (Menu Hamburger e Dropdowns)
     // ========================================
-    const themeToggle = document.querySelector('#theme-toggle');
+    initNavigation() {
+        const navToggle = document.querySelector('.nav-toggle'); // Botão Hamburger
+        const mainNav = document.querySelector('.main-nav');     // Contêiner da navegação
+        
+        if (navToggle && mainNav) {
+            // Evento de clique para abrir/fechar o menu mobile
+            navToggle.addEventListener('click', () => this.toggleMenu());
+            // Suporte a teclado para o botão hamburger (Enter/Espaço)
+            navToggle.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.toggleMenu();
+                }
+            });
+            
+            // Fecha o menu mobile se clicar fora dele
+            document.addEventListener('click', (e) => {
+                if (!navToggle.contains(e.target) && !mainNav.contains(e.target)) {
+                    this.closeMenu();
+                }
+            });
+            
+            // Fecha o menu mobile se redimensionar para desktop
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 992) { // '992px' é o breakpoint definido no CSS para mobile
+                    this.closeMenu();
+                }
+            });
+            
+            // Fecha o menu mobile com a tecla ESC
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && this.isMenuOpen) {
+                    this.closeMenu();
+                    navToggle.focus(); // Retorna o foco para o botão hamburger
+                }
+            });
+        }
+        
+        // Inicializa a lógica dos dropdowns (submenus)
+        this.initDropdowns();
+    }
     
-    function updateThemeButton() {
-        if (themeToggle) {
-            const isDark = body.classList.contains('dark-mode');
-            themeToggle.textContent = isDark ? '☀️ Claro' : '🌙 Escuro';
-            themeToggle.setAttribute('aria-label', 
-                isDark ? 'Ativar tema claro' : 'Ativar tema escuro'
-            );
-            console.log('Tema atual:', isDark ? 'escuro' : 'claro');
+    // Alterna o estado do menu (aberto/fechado)
+    toggleMenu() {
+        if (this.isMenuOpen) {
+            this.closeMenu();
+        } else {
+            this.openMenu();
         }
     }
     
-    if (themeToggle && !isAdminPage) {
-        themeToggle.addEventListener('click', function() {
-            body.classList.toggle('dark-mode');
-            const isDark = body.classList.contains('dark-mode');
-            
-            if (isDark) {
-                body.classList.remove('admin-theme-override');
-            } else {
-                body.classList.add('admin-theme-override');
-            }
-            
-            // Salva no localStorage
-            localStorage.setItem('clubeAmizadeTheme', isDark ? 'dark' : 'light');
-            
-            updateThemeButton();
-            console.log('Tema alterado para:', isDark ? 'escuro' : 'claro');
-        });
+    // Abre o menu mobile
+    openMenu() {
+        const navToggle = document.querySelector('.nav-toggle');
+        const mainNav = document.querySelector('.main-nav');
         
-        // Navegação por teclado
-        themeToggle.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                this.click();
-            }
-        });
+        navToggle.classList.add('active'); // Ativa a animação do hamburger
+        mainNav.classList.add('active');   // Expande o menu
+        navToggle.setAttribute('aria-expanded', 'true'); // Atualiza atributo ARIA
+        this.isMenuOpen = true;
+        
+        // Move o foco para o primeiro link do menu para acessibilidade
+        const firstLink = mainNav.querySelector('.nav-link');
+        if (firstLink) {
+            setTimeout(() => firstLink.focus(), 100);
+        }
+        
+        console.log('Menu mobile aberto.');
     }
     
-    updateThemeButton();
-    
-    // ========================================
-    // 3. MENU MOBILE - SANFONA COM SUBMENU
-    // ========================================
-    const menuToggle = document.querySelector('.menu-toggle');
-    const mainMenu = document.querySelector('.main-menu');
-    
-    if (menuToggle && mainMenu) {
-        menuToggle.addEventListener('click', function() {
-            const isActive = mainMenu.classList.contains('active');
+    // Fecha o menu mobile
+    closeMenu() {
+        const navToggle = document.querySelector('.nav-toggle');
+        const mainNav = document.querySelector('.main-nav');
+        
+        if (navToggle && mainNav) {
+            navToggle.classList.remove('active'); // Desativa a animação do hamburger
+            mainNav.classList.remove('active');   // Recolhe o menu
+            navToggle.setAttribute('aria-expanded', 'false'); // Atualiza atributo ARIA
+            this.isMenuOpen = false;
             
-            if (isActive) {
-                // Fechar menu
-                closeMenu();
-            } else {
-                // Abrir menu
-                openMenu();
-            }
-        });
-        
-        // Navegação por teclado para menu toggle
-        menuToggle.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                this.click();
-            }
-        });
-        
-        // Inicializar submenus
-        initSubmenus();
-        
-        // Fechar menu ao clicar fora
-        document.addEventListener('click', function(e) {
-            if (!menuToggle.contains(e.target) && !mainMenu.contains(e.target)) {
-                closeMenu();
-            }
-        });
-        
-        // Fechar menu no desktop
-        window.addEventListener('resize', function() {
-            if (window.innerWidth >= 768) {
-                closeMenu();
-            }
-        });
-        
-        // Navegação por teclado - ESC para fechar menu
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && mainMenu.classList.contains('active')) {
-                closeMenu();
-                menuToggle.focus();
-            }
-        });
-    }
-    
-    function openMenu() {
-        mainMenu.classList.add('active');
-        menuToggle.classList.add('active');
-        menuToggle.setAttribute('aria-expanded', 'true');
-        console.log('Menu aberto');
-    }
-    
-    function closeMenu() {
-        mainMenu.classList.remove('active');
-        menuToggle.classList.remove('active');
-        menuToggle.setAttribute('aria-expanded', 'false');
-        
-        // Fechar todos os submenus
-        const activeSubmenus = mainMenu.querySelectorAll('.menu-item.has-submenu.active');
-        activeSubmenus.forEach(item => {
-            item.classList.remove('active');
-        });
-        
-        console.log('Menu fechado');
-    }
-    
-    function initSubmenus() {
-        const submenuItems = mainMenu.querySelectorAll('.menu-item.has-submenu > a');
-        
-        submenuItems.forEach(item => {
-            item.addEventListener('click', function(e) {
-                e.preventDefault();
-                const parentItem = this.parentElement;
-                const isActive = parentItem.classList.contains('active');
-                
-                // Fechar outros submenus
-                const otherActiveItems = mainMenu.querySelectorAll('.menu-item.has-submenu.active');
-                otherActiveItems.forEach(otherItem => {
-                    if (otherItem !== parentItem) {
-                        otherItem.classList.remove('active');
-                    }
-                });
-                
-                // Toggle do submenu atual
-                parentItem.classList.toggle('active');
-                
-                console.log('Submenu', isActive ? 'fechado' : 'aberto');
+            // Fecha todos os dropdowns abertos no mobile ao fechar o menu principal
+            const activeDropdowns = document.querySelectorAll('.nav-item.has-dropdown.active');
+            activeDropdowns.forEach(item => {
+                item.classList.remove('active');
             });
             
-            // Navegação por teclado para submenus
-            item.addEventListener('keydown', function(e) {
+            console.log('Menu mobile fechado.');
+        }
+    }
+    
+    // Gerencia a lógica dos submenus (dropdowns)
+    initDropdowns() {
+        const dropdownItems = document.querySelectorAll('.nav-item.has-dropdown');
+        
+        dropdownItems.forEach(item => {
+            const link = item.querySelector('.nav-link'); // O link principal que ativa o dropdown
+            
+            // Lógica para mobile (clique para alternar dropdown)
+            link.addEventListener('click', (e) => {
+                if (window.innerWidth < 992) { // Apenas em telas menores que desktop
+                    e.preventDefault(); // Impede a navegação para #
+                    
+                    // Fecha outros dropdowns abertos para evitar múltiplos abertos
+                    const otherDropdowns = document.querySelectorAll('.nav-item.has-dropdown.active');
+                    otherDropdowns.forEach(otherItem => {
+                        if (otherItem !== item) { // Se não for o item clicado
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    
+                    // Alterna a classe 'active' para abrir/fechar o dropdown atual
+                    item.classList.toggle('active');
+                    
+                    console.log('Dropdown mobile', item.classList.contains('active') ? 'aberto' : 'fechado');
+                }
+            });
+            
+            // Lógica para desktop (hover para abrir dropdown)
+            if (window.innerWidth >= 992) {
+                item.addEventListener('mouseenter', () => {
+                    item.classList.add('active');
+                });
+                
+                item.addEventListener('mouseleave', () => {
+                    item.classList.remove('active');
+                });
+            }
+            
+            // Suporte a teclado para links de dropdown
+            link.addEventListener('keydown', (e) => {
+                // Abre/fecha dropdown com Enter/Espaço no mobile
                 if (e.key === 'Enter' || e.key === ' ') {
+                    if (window.innerWidth < 992) {
+                        e.preventDefault();
+                        item.classList.toggle('active');
+                    }
+                }
+                
+                // Navega para o primeiro item do dropdown com Seta para Baixo
+                if (e.key === 'ArrowDown') {
                     e.preventDefault();
-                    this.click();
+                    const dropdown = item.querySelector('.dropdown-menu');
+                    if (dropdown) {
+                        const firstItem = dropdown.querySelector('.dropdown-item');
+                        if (firstItem) firstItem.focus();
+                    }
+                }
+            });
+        });
+        
+        // Navegação por teclado dentro dos itens do dropdown
+        const dropdownItems2 = document.querySelectorAll('.dropdown-item');
+        dropdownItems2.forEach((item, index, items) => {
+            item.addEventListener('keydown', (e) => {
+                // Navega para o próximo item do dropdown com Seta para Baixo
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    const nextItem = items[index + 1];
+                    if (nextItem) nextItem.focus();
+                }
+                
+                // Navega para o item anterior do dropdown com Seta para Cima
+                if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    const prevItem = items[index - 1];
+                    if (prevItem) {
+                        prevItem.focus();
+                    } else {
+                        // Se for o primeiro item, volta para o link principal do dropdown
+                        const parentNav = item.closest('.nav-item');
+                        const parentLink = parentNav.querySelector('.nav-link');
+                        if (parentLink) parentLink.focus();
+                    }
                 }
             });
         });
     }
     
     // ========================================
-    // 4. CONTROLE DE FONTE - CORRIGIDO PARA BODY
+    // NAVEGAÇÃO SUAVE (Smooth Scroll)
     // ========================================
-    let currentFontSize = 16; // Tamanho padrão
-    const minFontSize = 14;
-    const maxFontSize = 20;
-    
-    const increaseFontBtn = document.querySelector('#increase-font');
-    const decreaseFontBtn = document.querySelector('#decrease-font');
-    const resetFontBtn = document.querySelector('#reset-font');
-    
-    // Carrega tamanho salvo
-    const savedFontSize = localStorage.getItem('clubeAmizadeFontSize');
-    if (savedFontSize) {
-        currentFontSize = parseInt(savedFontSize);
-    }
-    
-    function updateFontSize() {
-        // APLICA NO BODY INTEIRO
-        body.style.fontSize = currentFontSize + 'px';
-        
-        // Atualiza botões
-        if (increaseFontBtn) {
-            increaseFontBtn.disabled = currentFontSize >= maxFontSize;
-        }
-        if (decreaseFontBtn) {
-            decreaseFontBtn.disabled = currentFontSize <= minFontSize;
-        }
-        
-        console.log('Fonte alterada para:', currentFontSize + 'px');
-    }
-    
-    if (increaseFontBtn) {
-        increaseFontBtn.addEventListener('click', function() {
-            if (currentFontSize < maxFontSize) {
-                currentFontSize += 1;
-                updateFontSize();
-                localStorage.setItem('clubeAmizadeFontSize', currentFontSize);
-            }
-        });
-        
-        // Navegação por teclado
-        increaseFontBtn.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                this.click();
-            }
-        });
-    }
-    
-    if (decreaseFontBtn) {
-        decreaseFontBtn.addEventListener('click', function() {
-            if (currentFontSize > minFontSize) {
-                currentFontSize -= 1;
-                updateFontSize();
-                localStorage.setItem('clubeAmizadeFontSize', currentFontSize);
-            }
-        });
-        
-        // Navegação por teclado
-        decreaseFontBtn.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                this.click();
-            }
-        });
-    }
-    
-    if (resetFontBtn) {
-        resetFontBtn.addEventListener('click', function() {
-            currentFontSize = 16;
-            updateFontSize();
-            localStorage.setItem('clubeAmizadeFontSize', currentFontSize);
-        });
-        
-        // Navegação por teclado
-        resetFontBtn.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                this.click();
-            }
-        });
-    }
-    
-    // Aplica tamanho inicial
-    updateFontSize();
-    
-    // ========================================
-    // 5. ALTO CONTRASTE
-    // ========================================
-    const contrastToggle = document.querySelector('#contrast-toggle');
-    
-    // Carrega contraste salvo
-    const savedContrast = localStorage.getItem('clubeAmizadeContrast');
-    if (savedContrast === 'high') {
-        body.classList.add('high-contrast');
-    }
-    
-    function updateContrastButton() {
-        if (contrastToggle) {
-            const isHighContrast = body.classList.contains('high-contrast');
-            contrastToggle.textContent = isHighContrast ? '🎨 Normal' : '⚫ Contraste';
-            contrastToggle.setAttribute('aria-label', 
-                isHighContrast ? 'Desativar alto contraste' : 'Ativar alto contraste'
-            );
-        }
-    }
-    
-    if (contrastToggle) {
-        contrastToggle.addEventListener('click', function() {
-            body.classList.toggle('high-contrast');
-            const isHighContrast = body.classList.contains('high-contrast');
-            
-            localStorage.setItem('clubeAmizadeContrast', 
-                isHighContrast ? 'high' : 'normal'
-            );
-            
-            updateContrastButton();
-            console.log('Contraste:', isHighContrast ? 'alto' : 'normal');
-        });
-        
-        // Navegação por teclado
-        contrastToggle.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                this.click();
-            }
-        });
-    }
-    
-    updateContrastButton();
-    
-    // ========================================
-    // 6. SMOOTH SCROLL
-    // ========================================
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            
-            if (target) {
-                const headerHeight = document.querySelector('header').offsetHeight;
-                const targetPosition = target.offsetTop - headerHeight - 20;
+    initSmoothScroll() {
+        // Seleciona todos os links que começam com "#" (links de âncora)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', (e) => {
+                e.preventDefault(); // Previne o comportamento padrão do link
+                const target = document.querySelector(anchor.getAttribute('href')); // Encontra o elemento alvo
                 
+                if (target) {
+                    const headerHeight = document.querySelector('.header').offsetHeight; // Altura do cabeçalho fixo
+                    // Calcula a posição do alvo, descontando a altura do cabeçalho e um pequeno offset
+                    const targetPosition = target.offsetTop - headerHeight - 20;
+                    
+                    // Rola a página suavemente para a posição calculada
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    }
+    
+    // ========================================
+    // ANIMAÇÕES (Intersection Observer para efeitos de fade-in)
+    // ========================================
+    initAnimations() {
+        // Opções para o Intersection Observer
+        const observerOptions = {
+            threshold: 0.1, // Elemento visível em 10% para ativar
+            rootMargin: '0px 0px -50px 0px' // Margem para carregar antes de realmente entrar na viewport
+        };
+        
+        // Callback que será executado quando um elemento observado entra/sai da viewport
+        const observerCallback = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) { // Se o elemento está visível
+                    entry.target.classList.add('fade-in'); // Adiciona a classe de animação
+                    observer.unobserve(entry.target); // Deixa de observar (anima uma vez só)
+                }
+            });
+        };
+        
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
+        
+        // Observa elementos específicos para aplicar animações
+        document.querySelectorAll('.category-card, .content-section, .hero-content, .section-title, .page-header').forEach(el => {
+            observer.observe(el);
+        });
+    }
+    
+    // ========================================
+    // NAVEGAÇÃO POR TECLADO (Aprimoramentos de foco e atalhos)
+    // ========================================
+    initKeyboardNavigation() {
+        // Atalhos de teclado específicos do main.js (evita conflitos com accessibility.js)
+        document.addEventListener('keydown', (e) => {
+            // Alt + M: Alternar o menu mobile (hamburger)
+            if (e.altKey && e.key === 'm') {
+                e.preventDefault(); // Previne o comportamento padrão do navegador
+                const navToggle = document.querySelector('.nav-toggle');
+                if (navToggle) navToggle.click();
+            }
+            
+            // Alt + H: Ir para o topo da página
+            if (e.altKey && e.key === 'h') {
+                e.preventDefault();
                 window.scrollTo({
-                    top: targetPosition,
+                    top: 0,
                     behavior: 'smooth'
                 });
+                this.showToast('Rolando para o topo da página', 'info');
             }
         });
-    });
-    
-    // ========================================
-    // 7. NAVEGAÇÃO POR TECLADO - ATALHOS
-    // ========================================
-    document.addEventListener('keydown', function(e) {
-        // Alt + T = Toggle tema (apenas se não for admin)
-        if (e.altKey && e.key === 't' && !isAdminPage) {
-            e.preventDefault();
-            if (themeToggle) themeToggle.click();
-        }
         
-        // Alt + C = Toggle contraste
-        if (e.altKey && e.key === 'c') {
-            e.preventDefault();
-            if (contrastToggle) contrastToggle.click();
-        }
+        // Adiciona/remove uma classe ao <body> para indicar que o usuário está navegando via teclado.
+        // Isso permite aplicar estilos de foco diferentes para navegação por teclado vs. mouse.
+        document.body.addEventListener('focusin', function(e) {
+            // Verifica se o foco foi dado por um clique do mouse ou por tab/teclado
+            if (e.detail === 0) { // e.detail é 0 para foco via teclado, >0 para foco via mouse click
+                document.body.classList.add('keyboard-nav-active');
+            }
+        });
         
-        // Alt + M = Toggle menu
-        if (e.altKey && e.key === 'm') {
-            e.preventDefault();
-            if (menuToggle) menuToggle.click();
-        }
+        document.body.addEventListener('mousedown', function() {
+            // Remove a classe se o usuário clicar com o mouse, assumindo que a navegação por teclado foi interrompida.
+            document.body.classList.remove('keyboard-nav-active');
+        });
         
-        // Alt + + = Aumentar fonte
-        if (e.altKey && e.key === '=') {
-            e.preventDefault();
-            if (increaseFontBtn) increaseFontBtn.click();
-        }
-        
-        // Alt + - = Diminuir fonte
-        if (e.altKey && e.key === '-') {
-            e.preventDefault();
-            if (decreaseFontBtn) decreaseFontBtn.click();
-        }
-    });
-    
-    // ========================================
-    // 8. LOG FINAL
-    // ========================================
-    console.log('✅ Inicialização completa!');
-    console.log('Estado:', {
-        tema: body.classList.contains('dark-mode') ? 'escuro' : 'claro',
-        fonte: currentFontSize + 'px',
-        contraste: body.classList.contains('high-contrast') ? 'alto' : 'normal',
-        isAdmin: isAdminPage
-    });
-    
-    if (!isAdminPage) {
-        console.log('⌨️ Atalhos disponíveis:');
-        console.log('Alt + T = Alternar tema');
-        console.log('Alt + C = Alternar contraste');
-        console.log('Alt + M = Abrir/fechar menu');
-        console.log('Alt + + = Aumentar fonte');
-        console.log('Alt + - = Diminuir fonte');
+        console.log('⌨️ Atalhos de Navegação Adicionais (main.js):');
+        console.log('  Alt + M = Abrir/fechar menu mobile');
+        console.log('  Alt + H = Ir para o topo da página');
     }
+    
+    // ========================================
+    // UTILITÁRIOS (Função para mostrar toasts/mensagens)
+    // ========================================
+    showToast(message, type = 'info') {
+        // Remove qualquer toast existente para evitar sobreposição
+        const existingToast = document.querySelector('.toast');
+        if (existingToast) {
+            existingToast.remove();
+        }
+        
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`; // Adiciona classes de estilo e tipo (success, error, info)
+        toast.textContent = message; // Define o texto da mensagem
+        toast.setAttribute('role', 'alert'); // Para leitores de tela
+        toast.setAttribute('aria-live', 'polite'); // Informa ao leitor de tela para anunciar a mensagem suavemente
+        
+        document.body.appendChild(toast); // Adiciona o toast ao corpo do documento
+        
+        // Força o reflow para garantir a animação
+        void toast.offsetWidth; 
+        
+        // Mostra o toast (adiciona a classe 'show' que inicia a transição CSS)
+        toast.classList.add('show');
+        
+        // Remove o toast após 3 segundos
+        setTimeout(() => {
+            toast.classList.remove('show'); // Inicia a transição de saída
+            // Remove o elemento do DOM após a transição de saída (0.3s definido no CSS)
+            setTimeout(() => {
+                if (document.body.contains(toast)) { // Verifica se ainda está no DOM
+                    document.body.removeChild(toast);
+                }
+            }, 300); 
+        }, 3000); // Duração total em que o toast fica visível
+    }
+}
+
+// Inicializa a classe principal quando o DOM estiver completamente carregado
+document.addEventListener('DOMContentLoaded', () => {
+    window.clubeAmizade = new ClubeAmizade(); // Instancia o objeto principal
 });
+
+// Expõe a função showToast globalmente para que outros scripts (como accessibility.js) possam usá-la
+window.showToast = function(message, type) {
+    if (window.clubeAmizade) {
+        window.clubeAmizade.showToast(message, type);
+    }
+};

@@ -1,0 +1,156 @@
+<!-- clube_da_amizade/pages/templates/pages/index.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Clube da Amizade Pe. Antônio Gonçalves - Espaço de convivência, atividades físicas, cultura e bem-estar">
+    <title>Início - Clube da Amizade Pe. Antônio Gonçalves</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../../static/css/style.css">
+    
+    <!-- Favicon (Certifique-se de ter o arquivo em static/images/favicon.ico) -->
+    <link rel="icon" type="image/x-icon" href="../../../static/images/favicon.ico">
+</head>
+<body>
+    <!-- Skip Links para Acessibilidade -->
+    <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
+    
+    <!-- Header (Cabeçalho global para todas as páginas) -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <!-- Logo -->
+                <div class="logo">
+                    <a href="index.html">
+                        <h1>Clube da Amizade</h1>
+                        <p class="subtitle">Pe. Antônio Gonçalves</p>
+                    </a>
+                </div>
+                
+                <!-- Botão de Navegação Mobile (Hamburger) -->
+                <button class="nav-toggle" aria-expanded="false" aria-label="Abrir menu de navegação">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+                
+                <!-- Navegação Principal -->
+                <nav class="main-nav" role="navigation">
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="index.html" class="nav-link active">Início</a>
+                        </li>
+                        <li class="nav-item has-dropdown">
+                            <a href="#" class="nav-link">Atividades</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="atividades_fisicas.html" class="dropdown-item">Atividades Físicas</a></li>
+                                <li><a href="cultura_e_arte.html" class="dropdown-item">Cultura e Arte</a></li>
+                                <li><a href="corpo_e_mente_em_acao.html" class="dropdown-item">Corpo e Mente em Ação</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="sobre.html" class="nav-link">Sobre</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="contato.html" class="nav-link">Contato</a>
+                        </li>
+                    </ul>
+                    
+                    <!-- Ferramentas de Acessibilidade (Visíveis no menu mobile e desktop) -->
+                    <div class="accessibility-tools">
+                        <button id="theme-toggle" class="accessibility-btn" aria-label="Alternar tema (Claro/Escuro)">🌙 Escuro</button>
+                        <button id="increase-font" class="accessibility-btn" aria-label="Aumentar tamanho da fonte">A+</button>
+                        <button id="decrease-font" class="accessibility-btn" aria-label="Diminuir tamanho da fonte">A-</button>
+                        <button id="reset-font" class="accessibility-btn" aria-label="Resetar tamanho da fonte para o padrão">A</button>
+                        <button id="contrast-toggle" class="accessibility-btn" aria-label="Alternar modo de alto contraste">⚫ Contraste</button>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Conteúdo Principal da Página Inicial -->
+    <main id="main-content" class="main-content">
+        <!-- Hero Section: Destaque principal da página -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content fade-in">
+                    <h1>Bem-vindos ao Clube da Amizade</h1>
+                    <p>Um espaço dedicado à convivência, bem-estar e desenvolvimento pessoal. Venha fazer parte da nossa comunidade!</p>
+                    <a href="#categories" class="btn btn-primary btn-lg">Conheça Nossas Atividades</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Seção de Categorias: Apresenta as principais áreas de atividades -->
+        <section id="categories" class="categories-section">
+            <div class="container">
+                <div class="section-title fade-in">
+                    <h2>Nossas Principais Atividades</h2>
+                    <p>Descubra as diferentes modalidades que oferecemos para promover sua saúde física, mental e social.</p>
+                </div>
+                
+                <div class="categories-grid">
+                    <!-- Card 1: Atividades Físicas -->
+                    <a href="atividades_fisicas.html" class="category-card slide-in">
+                        <span class="category-icon" aria-hidden="true">🏃‍♂️</span>
+                        <h3>Atividades Físicas</h3>
+                        <p>Exercícios e práticas esportivas para manter o corpo ativo e saudável. Caminhadas, alongamentos, dança e muito mais.</p>
+                        <span class="btn btn-secondary btn-sm">Ver Atividades</span>
+                    </a>
+                    
+                    <!-- Card 2: Cultura e Arte -->
+                    <a href="cultura_e_arte.html" class="category-card slide-in">
+                        <span class="category-icon" aria-hidden="true">🎨</span>
+                        <h3>Cultura e Arte</h3>
+                        <p>Expressão artística e cultural através de oficinas, apresentações e atividades criativas que estimulam a mente.</p>
+                        <span class="btn btn-secondary btn-sm">Ver Atividades</span>
+                    </a>
+                    
+                    <!-- Card 3: Corpo e Mente em Ação -->
+                    <a href="corpo_e_mente_em_acao.html" class="category-card slide-in">
+                        <span class="category-icon" aria-hidden="true">🧘‍♀️</span>
+                        <h3>Corpo e Mente em Ação</h3>
+                        <p>Práticas integrativas que conectam corpo e mente, promovendo equilíbrio, relaxamento e bem-estar integral.</p>
+                        <span class="btn btn-secondary btn-sm">Ver Atividades</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Seção Sobre: Breve apresentação do clube -->
+        <section class="content-section fade-in">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h2>Sobre o Clube da Amizade</h2>
+                        <p>O Clube da Amizade Pe. Antônio Gonçalves é um espaço dedicado à promoção da convivência social, saúde e bem-estar da comunidade. Nossa missão é proporcionar um ambiente acolhedor onde pessoas de todas as idades possam participar de atividades que contribuam para sua qualidade de vida.</p>
+                        
+                        <p>Desde nossa fundação, temos sido um ponto de encontro para amizades e aprendizado, com uma variedade de atividades que abrangem desde exercícios físicos até práticas culturais e artísticas, sempre com foco no desenvolvimento integral de nossos membros.</p>
+                        
+                        <div class="mt-6 text-center">
+                            <a href="sobre.html" class="btn btn-primary">Saiba Mais Sobre Nós</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer (Rodapé global para todas as páginas) -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 Clube da Amizade Pe. Antônio Gonçalves. Todos os direitos reservados.</p>
+                <p>Desenvolvido com ❤️ para promover a convivência e o bem-estar.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scripts JavaScript -->
+    <script src="../../../static/js/main.js"></script>
+    <script src="../../../static/js/accessibility.js"></script>
+</body>
+</html>
