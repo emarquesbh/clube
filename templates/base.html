@@ -1,0 +1,89 @@
+{# templates/base.html #}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    {% load static %} {# ESSENCIAL: Carrega as tags para trabalhar com arquivos estáticos #}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {# Título dinâmico para a página #}
+    <title>{% block title %}Clube da Amizade Pe. Antônio Gonçalves{% endblock %}</title>
+
+    {# Link para o seu arquivo CSS principal #}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    {# Opcional: Link para o Google Fonts, se você estiver usando a fonte Roboto ou outras #}
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="light-mode"> {# 'light-mode' é a classe inicial para o tema #}
+    {# Link para pular para o conteúdo principal (acessibilidade para leitores de tela) #}
+    <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
+
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <a href="{% url 'pages:index' %}">
+                    <h1>Clube da Amizade</h1>
+                    <p>Pe. Antônio Gonçalves</p>
+                </a>
+            </div>
+
+            {# Botão do menu hambúrguer para mobile #}
+            <button class="menu-toggle" aria-expanded="false" aria-controls="main-menu">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            {# Menu de Navegação Principal #}
+            <nav>
+                <ul id="main-menu" class="main-menu">
+                    {# Iterar sobre as categorias de menu globais fornecidas pelo context processor #}
+                    {% for categoria in categorias_globais %}
+                        <li class="menu-item">
+                            <a href="{% url 'pages:pagina_categoria' categoria_slug=categoria.slug %}">{{ categoria.nome }}</a>
+                            {# Se houver páginas publicadas dentro desta categoria, exibe-as como sub-menu #}
+                            {% if categoria.paginas_publicadas %}
+                                <ul class="submenu">
+                                    {% for pagina in categoria.paginas_publicadas %}
+                                        <li><a href="{% url 'pages:pagina_detalhe' categoria_slug=categoria.slug pagina_slug=pagina.slug %}">{{ pagina.titulo }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                    {# Exemplo de item de menu fixo, se não for gerenciado por Categorias no BD #}
+                    {# <li class="menu-item"><a href="{% url 'pages:contato' %}">Fale Conosco</a></li> #}
+                </ul>
+            </nav>
+
+            {# Ferramentas de Acessibilidade #}
+            <div class="accessibility-tools">
+                <button id="increase-font" aria-label="Aumentar tamanho da fonte">A+</button>
+                <button id="decrease-font" aria-label="Diminuir tamanho da fonte">A-</button>
+                <button id="theme-toggle" aria-label="Alternar para modo escuro">Modo</button>
+            </div>
+        </div>
+    </header>
+
+    {# O 'main-content' é o target para o 'skip-link' e para a leitura de texto #}
+    <main id="main-content">
+        <div class="container">
+            {% block content %}
+            {# O conteúdo específico de cada página será inserido aqui #}
+            {% endblock %}
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; {% now "Y" %} Clube da Amizade Pe. Antônio Gonçalves. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    {# Links para os seus arquivos JavaScript #}
+    <script src="{% static 'js/main.js' %}"></script> {# Para o menu responsivo #}
+    <script src="{% static 'js/accessibility.js' %}"></script> {# Para funcionalidades de acessibilidade #}
+    {# Bloco para JS adicionais de páginas específicas, se necessário #}
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!-- templates/pages/index.html -->
+{% extends 'base.html' %} {# Indica que este template herda a estrutura de base.html #}
+{% load static %} {# ESSENCIAL: Carrega as tags para trabalhar com arquivos estáticos #}
+
+{# Define o título específico desta página, que será inserido no bloco 'title' de base.html #}
+{% block title %}Início - Clube da Amizade Pe. Antônio Gonçalves{% endblock %}
+
+{# Define o conteúdo principal desta página, que será inserido no bloco 'content' de base.html #}
+{% block content %}
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Bem-vindo ao Clube da Amizade!</h2>
+            <p>Um espaço de convivência, aprendizado e bem-estar para a melhor idade.</p>
+            {# Link para a página "O Clube", usando a URL dinâmica do Django #}
+            <a href="{% url 'pages:pagina_categoria' categoria_slug='o-clube' %}" class="btn-primary">Saiba Mais Sobre Nós</a>
+        </div>
+    </section>
+
+    <section class="activities-overview">
+        <h3>Nossas Principais Atividades</h3>
+        <div class="activity-grid">
+            {# Itera sobre as categorias de menu globais (passadas pelo context processor) #}
+            {% for categoria in categorias_globais %}
+                {# Exclui as categorias "Fale Conosco" e "O Clube" desta exibição principal na home #}
+                {% if not categoria.slug == 'fale-conosco' and not categoria.slug == 'o-clube' %}
+                    <div class="activity-card">
+                        <h4>{{ categoria.nome }}</h4>
+                        <p>Explore as diversas opções de {{ categoria.nome|lower }} para o seu bem-estar.</p>
+                        {# Link para a página de detalhes da categoria #}
+                        <a href="{% url 'pages:pagina_categoria' categoria_slug=categoria.slug %}" class="btn-secondary">Ver Atividades</a>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </section>
+
+    {# Você pode adicionar mais seções aqui conforme o design final da sua página inicial #}
+    {# Exemplo: uma seção de "Destaques" ou "Últimas Notícias" #}
+
+{% endblock %}

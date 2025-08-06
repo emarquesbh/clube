@@ -1,0 +1,13 @@
+<!-- templates/pages/pagina_detalhe.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ pagina.titulo }} - {{ categoria.nome }} - Clube da Amizade{% endblock %}
+
+{% block content %}
+    <h2 class="page-title">{{ pagina.titulo }}</h2>
+    <div class="content-section">
+        {{ pagina.conteudo|safe }} {# Usar '|safe' porque o conteúdo vem do RichTextField #}
+    </div>
+    <a href="{% url 'pages:pagina_categoria' categoria_slug=categoria.slug %}" class="btn-back">Voltar para {{ categoria.nome }}</a>
+{% endblock %}

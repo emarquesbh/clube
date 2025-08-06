@@ -1,0 +1,188 @@
+<!-- C:\clube\pages\templates\pages\pagina_categoria.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ categoria.nome }} - Clube da Amizade Pe. Antônio Gonçalves</title>
+    <style>
+        /* Estilos básicos para o template */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #007bff;
+        }
+        .header h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .header p {
+            color: #666;
+            font-size: 1.2em;
+        }
+        .navigation {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .atividades-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        .atividade-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            background: #f8f9fa;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .atividade-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            border-color: #007bff;
+        }
+        .atividade-card h3 {
+            color: #007bff;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+        .atividade-info {
+            margin-bottom: 10px;
+            color: #555;
+        }
+        .atividade-info strong {
+            color: #333;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: linear-gradient(45deg, #007bff, #0056b3);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            margin: 10px 5px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        .btn:hover {
+            background: linear-gradient(45deg, #0056b3, #004085);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,123,255,0.4);
+        }
+        .btn-secondary {
+            background: linear-gradient(45deg, #6c757d, #5a6268);
+        }
+        .btn-secondary:hover {
+            background: linear-gradient(45deg, #5a6268, #495057);
+        }
+        .no-activities {
+            text-align: center;
+            padding: 40px;
+            background: #fff3cd;
+            border: 2px solid #ffeaa7;
+            border-radius: 12px;
+            color: #856404;
+        }
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            color: #666;
+            padding: 20px;
+            border-top: 2px solid #e0e0e0;
+        }
+        .club-logo {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Cabeçalho da página -->
+        <div class="header">
+            <div class="club-logo">🤝</div>
+            <h1>{{ categoria.nome|default:"Atividades Físicas" }}</h1>
+            <p>{{ categoria.descricao|default:"Descubra nossas atividades físicas disponíveis no Clube da Amizade" }}</p>
+        </div>
+
+        <!-- Navegação -->
+        <nav class="navigation">
+            <a href="/" class="btn btn-secondary">🏠 Página Inicial</a>
+            <a href="/atividades/" class="btn btn-secondary">📋 Todas as Atividades</a>
+            <a href="/contato/" class="btn btn-secondary">📞 Contato</a>
+        </nav>
+
+        <!-- Lista de Atividades -->
+        <div class="atividades-grid">
+            {% if atividades %}
+                {% for atividade in atividades %}
+                <div class="atividade-card">
+                    <h3>🏃‍♂️ {{ atividade.nome }}</h3>
+                    <div class="atividade-info">
+                        <strong>📝 Descrição:</strong> {{ atividade.descricao|default:"Descrição não disponível" }}
+                    </div>
+                    <div class="atividade-info">
+                        <strong>🕐 Horário:</strong> {{ atividade.horario|default:"A definir" }}
+                    </div>
+                    <div class="atividade-info">
+                        <strong>📍 Local:</strong> {{ atividade.local|default:"A definir" }}
+                    </div>
+                    <div class="atividade-info">
+                        <strong>👨‍🏫 Instrutor:</strong> {{ atividade.instrutor|default:"A definir" }}
+                    </div>
+                    <div class="atividade-info">
+                        <strong>👥 Vagas:</strong> {{ atividade.vagas|default:"Ilimitadas" }}
+                    </div>
+                    <a href="/atividade/{{ atividade.id }}/" class="btn">Ver Detalhes</a>
+                    <a href="/inscricao/{{ atividade.id }}/" class="btn">Inscrever-se</a>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="no-activities">
+                    <h3>🔍 Nenhuma atividade encontrada</h3>
+                    <p>Ainda não temos atividades cadastradas nesta categoria, mas estamos trabalhando para trazer novidades em breve!</p>
+                    <a href="/" class="btn">🏠 Voltar ao Início</a>
+                    <a href="/sugestoes/" class="btn">💡 Enviar Sugestão</a>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Informações adicionais -->
+        <div style="margin-top: 40px; padding: 20px; background: #e3f2fd; border-radius: 10px;">
+            <h3 style="color: #1976d2; margin-bottom: 15px;">ℹ️ Informações Importantes</h3>
+            <ul style="color: #555; line-height: 1.6;">
+                <li>📋 As inscrições são gratuitas para todos os membros do clube</li>
+                <li>🆔 É necessário apresentar documento de identidade</li>
+                <li>👕 Use roupas adequadas para a prática de exercícios</li>
+                <li>💧 Traga sua garrafa de água</li>
+                <li>⏰ Chegue com 10 minutos de antecedência</li>
+            </ul>
+        </div>
+
+        <!-- Rodapé -->
+        <footer>
+            <p><strong>🤝 Clube da Amizade Pe. Antônio Gonçalves</strong></p>
+            <p>Promovendo convivência, amizade e bem-estar desde 1985</p>
+            <p>&copy; 2025 - Todos os direitos reservados</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!-- templates/pages/pagina_categoria.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ categoria.nome }} - Clube da Amizade{% endblock %}
+
+{% block content %}
+    <h2 class="page-title">{{ categoria.nome }}</h2>
+    <div class="content-section">
+        {% if paginas_associadas %}
+            <ul class="sub-menu-list">
+                {% for pagina in paginas_associadas %}
+                    <li><a href="{% url 'pages:pagina_detalhe' categoria_slug=categoria.slug pagina_slug=pagina.slug %}">{{ pagina.titulo }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Nenhuma página encontrada para esta categoria ainda. Volte em breve!</p>
+        {% endif %}
+    </div>
+{% endblock %}
