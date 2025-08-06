@@ -1,0 +1,23 @@
+# backup_system/requirements.txt
+# Dependências para o Sistema de Backup
+
+# Agendamento de tarefas
+schedule==1.2.0
+
+# Interface web
+Flask==2.3.3
+
+# Utilitários
+pathlib2==2.3.7
+
+# Logging avançado (opcional)
+colorlog==6.7.0
+
+# Para compressão avançada (opcional)
+# py7zr==0.20.6
+
+# Para notificações por email (opcional)
+# smtplib (built-in)
+
+# Para monitoramento de sistema (opcional)
+# psutil==5.9.5
