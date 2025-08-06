@@ -2,8 +2,18 @@
 
 from django.db import models
 from django.utils.text import slugify
-from ckeditor.fields import RichTextField # Proposta de Melhoria: Usar CKEditor para o editor rico
+from django_ckeditor_5.fields import CKEditor5Field
+from ckeditor.fields import RichTextField
 
+class Pagina(models.Model):
+    titulo = models.CharField(max_length=255, verbose_name="Título")
+    conteudo = RichTextField(verbose_name="Conteúdo da Página")
+
+    def __str__(self):
+        return self.titulo
+class MeuModelo(models.Model):
+    conteudo = CKEditor5Field('Conteúdo')
+    
 # Rotina Documentada: Criação dos Modelos Django para Páginas e Menu
 
 class CategoriaMenu(models.Model):

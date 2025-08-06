@@ -28,8 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'pages',
-    'ckeditor',
-    'ckeditor_uploader', 
+    'django_ckeditor_5',
 ]
 
 CKEDITOR_CONFIGS = {
