@@ -1,0 +1,74 @@
+{# templates/pages/pagina_categoria.html #}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ categoria.nome }} - Clube da Amizade{% endblock %}
+
+{% block description %}{{ categoria.nome }} - Descubra todas as atividades e informações sobre {{ categoria.nome|lower }} no Clube da Amizade Pe. Antônio Gonçalves.{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Page Header -->
+    <div class="page-header fade-in">
+        <h1 class="page-title">{{ categoria.nome }}</h1>
+        <p class="page-subtitle">Descubra todas as atividades e informações sobre {{ categoria.nome|lower }}</p>
+    </div>
+    
+    <!-- Conteúdo da Categoria -->
+    <div class="content-section fade-in">
+        {% if paginas_associadas %}
+            <h2>Atividades Disponíveis</h2>
+            <div class="row">
+                {% for pagina in paginas_associadas %}
+                    <div class="col-6">
+                        <div class="category-card" style="height: 100%; margin-bottom: var(--space-4);">
+                            <h3>{{ pagina.titulo }}</h3>
+                            <p>{{ pagina.conteudo|truncatewords:20|striptags }}</p>
+                            <a href="{% url 'pages:pagina_detalhe' categoria_slug=categoria.slug pagina_slug=pagina.slug %}" 
+                               class="btn btn-primary">Ver Detalhes</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="text-center">
+                <h2>Em Breve</h2>
+                <p>Estamos preparando conteúdos especiais para esta seção. Volte em breve para descobrir todas as novidades!</p>
+                <a href="{% url 'pages:index' %}" class="btn btn-primary">Voltar ao Início</a>
+            </div>
+        {% endif %}
+    </div>
+    
+    <!-- Informações Gerais -->
+    <div class="content-section fade-in">
+        <h2>Informações Importantes</h2>
+        <div class="row">
+            <div class="col-6">
+                <h3>📋 Como Participar</h3>
+                <ul>
+                    <li>Faça sua inscrição na secretaria do clube</li>
+                    <li>Apresente documento de identidade</li>
+                    <li>Participe das atividades nos horários estabelecidos</li>
+                </ul>
+            </div>
+            <div class="col-6">
+                <h3>ℹ️ Informações Gerais</h3>
+                <ul>
+                    <li>Todas as atividades são gratuitas</li>
+                    <li>Ambiente seguro e acolhedor</li>
+                    <li>Profissionais qualificados</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="text-center mt-6">
+            {% for cat in categorias_globais %}
+                {% if 'contato' in cat.nome|lower %}
+                    <a href="{% url 'pages:pagina_categoria' categoria_slug=cat.slug %}" class="btn btn-primary">Entre em Contato</a>
+                {% endif %}
+            {% endfor %}
+            <a href="{% url 'pages:index' %}" class="btn btn-secondary">Voltar ao Início</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

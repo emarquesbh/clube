@@ -2,88 +2,105 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    {% load static %} {# ESSENCIAL: Carrega as tags para trabalhar com arquivos estáticos #}
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {# Título dinâmico para a página #}
+    <meta name="description" content="{% block description %}Clube da Amizade Pe. Antônio Gonçalves - Espaço de convivência e bem-estar para a melhor idade{% endblock %}">
+    
     <title>{% block title %}Clube da Amizade Pe. Antônio Gonçalves{% endblock %}</title>
-
-    {# Link para o seu arquivo CSS principal #}
+    
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
-    {# Opcional: Link para o Google Fonts, se você estiver usando a fonte Roboto ou outras #}
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    {% block extra_css %}{% endblock %}
 </head>
-<body class="light-mode"> {# 'light-mode' é a classe inicial para o tema #}
-    {# Link para pular para o conteúdo principal (acessibilidade para leitores de tela) #}
+<body>
     <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
-
-    <header>
-        <div class="container header-content">
-            <div class="logo">
-                <a href="{% url 'pages:index' %}">
-                    <h1>Clube da Amizade</h1>
-                    <p>Pe. Antônio Gonçalves</p>
-                </a>
-            </div>
-
-            {# Botão do menu hambúrguer para mobile #}
-            <button class="menu-toggle" aria-expanded="false" aria-controls="main-menu">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-
-            {# Menu de Navegação Principal #}
-            <nav>
-                <ul id="main-menu" class="main-menu">
-                    {# Iterar sobre as categorias de menu globais fornecidas pelo context processor #}
-                    {% for categoria in categorias_globais %}
-                        <li class="menu-item">
-                            <a href="{% url 'pages:pagina_categoria' categoria_slug=categoria.slug %}">{{ categoria.nome }}</a>
-                            {# Se houver páginas publicadas dentro desta categoria, exibe-as como sub-menu #}
-                            {% if categoria.paginas_publicadas %}
-                                <ul class="submenu">
-                                    {% for pagina in categoria.paginas_publicadas %}
-                                        <li><a href="{% url 'pages:pagina_detalhe' categoria_slug=categoria.slug pagina_slug=pagina.slug %}">{{ pagina.titulo }}</a></li>
-                                    {% endfor %}
-                                </ul>
-                            {% endif %}
+    
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="{% url 'pages:index' %}">
+                        <h1>Clube da Amizade</h1>
+                        <p class="subtitle">Pe. Antônio Gonçalves</p>
+                    </a>
+                </div>
+                
+                <button class="nav-toggle" aria-expanded="false" aria-label="Abrir menu de navegação">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+                
+                <nav class="main-nav" role="navigation">
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="{% url 'pages:index' %}" class="nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}">
+                                Início
+                            </a>
                         </li>
-                    {% endfor %}
-                    {# Exemplo de item de menu fixo, se não for gerenciado por Categorias no BD #}
-                    {# <li class="menu-item"><a href="{% url 'pages:contato' %}">Fale Conosco</a></li> #}
-                </ul>
-            </nav>
-
-            {# Ferramentas de Acessibilidade #}
-            <div class="accessibility-tools">
-                <button id="increase-font" aria-label="Aumentar tamanho da fonte">A+</button>
-                <button id="decrease-font" aria-label="Diminuir tamanho da fonte">A-</button>
-                <button id="theme-toggle" aria-label="Alternar para modo escuro">Modo</button>
+                        
+                        {% for categoria in categorias_globais %}
+                            <li class="nav-item {% if categoria.paginas_publicadas %}has-dropdown{% endif %}">
+                                <a href="{% url 'pages:pagina_categoria' categoria_slug=categoria.slug %}" 
+                                   class="nav-link {% if request.resolver_match.kwargs.categoria_slug == categoria.slug %}active{% endif %}">
+                                    {{ categoria.nome }}
+                                </a>
+                                
+                                {% if categoria.paginas_publicadas %}
+                                    <ul class="dropdown-menu">
+                                        {% for pagina in categoria.paginas_publicadas %}
+                                            <li>
+                                                <a href="{% url 'pages:pagina_detalhe' categoria_slug=categoria.slug pagina_slug=pagina.slug %}" 
+                                                   class="dropdown-item">
+                                                    {{ pagina.titulo }}
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    
+                    <div class="accessibility-tools">
+                        <button id="theme-toggle" class="accessibility-btn" aria-label="Alternar tema">
+                            🌙 Escuro
+                        </button>
+                        <button id="increase-font" class="accessibility-btn" aria-label="Aumentar fonte">
+                            A+
+                        </button>
+                        <button id="decrease-font" class="accessibility-btn" aria-label="Diminuir fonte">
+                            A-
+                        </button>
+                        <button id="reset-font" class="accessibility-btn" aria-label="Resetar fonte">
+                            A
+                        </button>
+                    </div>
+                </nav>
             </div>
         </div>
     </header>
-
-    {# O 'main-content' é o target para o 'skip-link' e para a leitura de texto #}
-    <main id="main-content">
-        <div class="container">
-            {% block content %}
-            {# O conteúdo específico de cada página será inserido aqui #}
-            {% endblock %}
-        </div>
+    
+    <main id="main-content" class="main-content">
+        {% block content %}
+        {% endblock %}
     </main>
-
-    <footer>
+    
+    <footer class="footer">
         <div class="container">
-            <p>&copy; {% now "Y" %} Clube da Amizade Pe. Antônio Gonçalves. Todos os direitos reservados.</p>
+            <div class="footer-content">
+                <p>&copy; {% now "Y" %} Clube da Amizade Pe. Antônio Gonçalves. Todos os direitos reservados.</p>
+                <p>Desenvolvido com ❤️ para promover a convivência e o bem-estar.</p>
+            </div>
         </div>
     </footer>
-
-    {# Links para os seus arquivos JavaScript #}
-    <script src="{% static 'js/main.js' %}"></script> {# Para o menu responsivo #}
-    <script src="{% static 'js/accessibility.js' %}"></script> {# Para funcionalidades de acessibilidade #}
-    {# Bloco para JS adicionais de páginas específicas, se necessário #}
+    
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/accessibility.js' %}"></script>
     {% block extra_js %}{% endblock %}
 </body>
 </html>

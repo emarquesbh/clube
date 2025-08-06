@@ -1,40 +1,79 @@
-<!-- templates/pages/index.html -->
-{% extends 'base.html' %} {# Indica que este template herda a estrutura de base.html #}
-{% load static %} {# ESSENCIAL: Carrega as tags para trabalhar com arquivos estáticos #}
+{# templates/pages/index.html #}
+{% extends 'base.html' %}
+{% load static %}
 
-{# Define o título específico desta página, que será inserido no bloco 'title' de base.html #}
 {% block title %}Início - Clube da Amizade Pe. Antônio Gonçalves{% endblock %}
 
-{# Define o conteúdo principal desta página, que será inserido no bloco 'content' de base.html #}
+{% block description %}Bem-vindos ao Clube da Amizade Pe. Antônio Gonçalves - Um espaço dedicado à convivência, bem-estar e desenvolvimento pessoal para a melhor idade.{% endblock %}
+
 {% block content %}
-    <section class="hero">
+<div class="container">
+    <!-- Hero Section -->
+    <section class="hero fade-in">
         <div class="hero-content">
-            <h2>Bem-vindo ao Clube da Amizade!</h2>
-            <p>Um espaço de convivência, aprendizado e bem-estar para a melhor idade.</p>
-            {# Link para a página "O Clube", usando a URL dinâmica do Django #}
-            <a href="{% url 'pages:pagina_categoria' categoria_slug='o-clube' %}" class="btn-primary">Saiba Mais Sobre Nós</a>
+            <h1>Bem-vindos ao Clube da Amizade</h1>
+            <p>Um espaço dedicado à convivência, bem-estar e desenvolvimento pessoal. Venha fazer parte da nossa comunidade!</p>
+            <a href="#categories" class="btn btn-primary btn-lg">Conheça Nossas Atividades</a>
         </div>
     </section>
-
-    <section class="activities-overview">
-        <h3>Nossas Principais Atividades</h3>
-        <div class="activity-grid">
-            {# Itera sobre as categorias de menu globais (passadas pelo context processor) #}
+    
+    <!-- Seção de Categorias -->
+    <section id="categories" class="categories-section">
+        <div class="section-title fade-in">
+            <h2>Nossas Principais Atividades</h2>
+            <p>Descubra as diferentes modalidades que oferecemos para promover sua saúde física, mental e social.</p>
+        </div>
+        
+        <div class="categories-grid">
             {% for categoria in categorias_globais %}
-                {# Exclui as categorias "Fale Conosco" e "O Clube" desta exibição principal na home #}
-                {% if not categoria.slug == 'fale-conosco' and not categoria.slug == 'o-clube' %}
-                    <div class="activity-card">
-                        <h4>{{ categoria.nome }}</h4>
-                        <p>Explore as diversas opções de {{ categoria.nome|lower }} para o seu bem-estar.</p>
-                        {# Link para a página de detalhes da categoria #}
-                        <a href="{% url 'pages:pagina_categoria' categoria_slug=categoria.slug %}" class="btn-secondary">Ver Atividades</a>
-                    </div>
-                {% endif %}
+                <a href="{% url 'pages:pagina_categoria' categoria_slug=categoria.slug %}" class="category-card fade-in">
+                    <span class="category-icon" aria-hidden="true">
+                        {% if 'fisic' in categoria.nome|lower %}
+                            🏃‍♂️
+                        {% elif 'cultura' in categoria.nome|lower or 'arte' in categoria.nome|lower %}
+                            🎨
+                        {% elif 'mente' in categoria.nome|lower or 'corpo' in categoria.nome|lower %}
+                            🧘‍♀️
+                        {% else %}
+                            📋
+                        {% endif %}
+                    </span>
+                    <h3>{{ categoria.nome }}</h3>
+                    <p>
+                        {% if 'fisic' in categoria.nome|lower %}
+                            Exercícios e práticas esportivas para manter o corpo ativo e saudável.
+                        {% elif 'cultura' in categoria.nome|lower or 'arte' in categoria.nome|lower %}
+                            Expressão artística e cultural através de oficinas e atividades criativas.
+                        {% elif 'mente' in categoria.nome|lower or 'corpo' in categoria.nome|lower %}
+                            Práticas integrativas que conectam corpo e mente, promovendo equilíbrio.
+                        {% else %}
+                            Descubra mais sobre {{ categoria.nome|lower }}.
+                        {% endif %}
+                    </p>
+                    <span class="btn btn-secondary btn-sm">Ver Atividades</span>
+                </a>
             {% endfor %}
         </div>
     </section>
-
-    {# Você pode adicionar mais seções aqui conforme o design final da sua página inicial #}
-    {# Exemplo: uma seção de "Destaques" ou "Últimas Notícias" #}
-
+    
+    <!-- Seção Sobre -->
+    <section class="content-section fade-in">
+        <h2>Sobre o Clube da Amizade</h2>
+        <div class="row">
+            <div class="col-12">
+                <p>O Clube da Amizade Pe. Antônio Gonçalves é um espaço dedicado à promoção da convivência social, saúde e bem-estar da comunidade. Nossa missão é proporcionar um ambiente acolhedor onde pessoas de todas as idades possam participar de atividades que contribuam para sua qualidade de vida.</p>
+                
+                <p>Desde nossa fundação, temos sido um ponto de encontro para amizades e aprendizado, com uma variedade de atividades que abrangem desde exercícios físicos até práticas culturais e artísticas, sempre com foco no desenvolvimento integral de nossos membros.</p>
+                
+                <div class="text-center mt-6">
+                    {% for categoria in categorias_globais %}
+                        {% if 'sobre' in categoria.nome|lower %}
+                            <a href="{% url 'pages:pagina_categoria' categoria_slug=categoria.slug %}" class="btn btn-primary">Saiba Mais Sobre Nós</a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
 {% endblock %}

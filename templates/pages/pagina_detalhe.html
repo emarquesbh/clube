@@ -1,13 +1,56 @@
-<!-- templates/pages/pagina_detalhe.html -->
+{# templates/pages/pagina_detalhe.html #}
 {% extends 'base.html' %}
 {% load static %}
 
 {% block title %}{{ pagina.titulo }} - {{ categoria.nome }} - Clube da Amizade{% endblock %}
 
+{% block description %}{{ pagina.titulo }} - {{ pagina.conteudo|truncatewords:30|striptags }}{% endblock %}
+
 {% block content %}
-    <h2 class="page-title">{{ pagina.titulo }}</h2>
-    <div class="content-section">
-        {{ pagina.conteudo|safe }} {# Usar '|safe' porque o conteúdo vem do RichTextField #}
+<div class="container">
+    <!-- Page Header -->
+    <div class="page-header fade-in">
+        <h1 class="page-title">{{ pagina.titulo }}</h1>
+        <p class="page-subtitle">{{ categoria.nome }}</p>
     </div>
-    <a href="{% url 'pages:pagina_categoria' categoria_slug=categoria.slug %}" class="btn-back">Voltar para {{ categoria.nome }}</a>
+    
+    <!-- Conteúdo da Página -->
+    <div class="content-section fade-in">
+        <div class="row">
+            <div class="col-12">
+                {{ pagina.conteudo|safe }}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Navegação -->
+    <div class="content-section fade-in">
+        <div class="text-center">
+            <a href="{% url 'pages:pagina_categoria' categoria_slug=categoria.slug %}" 
+               class="btn btn-secondary">← Voltar para {{ categoria.nome }}</a>
+            <a href="{% url 'pages:index' %}" class="btn btn-primary">Início</a>
+        </div>
+    </div>
+    
+    <!-- Páginas Relacionadas -->
+    {% if categoria.paginas_publicadas.count > 1 %}
+    <div class="content-section fade-in">
+        <h2>Outras Atividades de {{ categoria.nome }}</h2>
+        <div class="row">
+            {% for outra_pagina in categoria.paginas_publicadas %}
+                {% if outra_pagina.slug != pagina.slug %}
+                    <div class="col-6">
+                        <div class="category-card" style="height: 100%; margin-bottom: var(--space-4);">
+                            <h3>{{ outra_pagina.titulo }}</h3>
+                            <p>{{ outra_pagina.conteudo|truncatewords:15|striptags }}</p>
+                            <a href="{% url 'pages:pagina_detalhe' categoria_slug=categoria.slug pagina_slug=outra_pagina.slug %}" 
+                               class="btn btn-primary btn-sm">Ver Detalhes</a>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
 {% endblock %}
