@@ -1,0 +1,497 @@
+{# templates/pages/contato.html #}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ page_title }} - Clube da Amizade{% endblock %}
+
+{% block description %}{{ page_description }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Estilos específicos para o formulário de contato */
+    .contact-form {
+        background: var(--card-bg);
+        padding: var(--space-8);
+        border-radius: 16px;
+        border: 2px solid var(--border-color);
+        box-shadow: var(--shadow);
+        margin-bottom: var(--space-8);
+    }
+    
+    .form-group {
+        margin-bottom: var(--space-6);
+    }
+    
+    .form-group label {
+        display: block;
+        margin-bottom: var(--space-3);
+        font-weight: 600;
+        color: var(--text-color);
+        font-size: var(--font-large);
+    }
+    
+    .form-control {
+        width: 100%;
+        font-size: 18px !important;
+        padding: 15px !important;
+        border: 2px solid var(--border-color) !important;
+        border-radius: 8px !important;
+        background: var(--bg-color) !important;
+        color: var(--text-color) !important;
+        transition: var(--transition);
+        font-family: inherit;
+    }
+    
+    .form-control:focus {
+        outline: none !important;
+        border-color: var(--primary-color) !important;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1) !important;
+    }
+    
+    .form-control.is-valid {
+        border-color: var(--secondary-color) !important;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2316a34a' d='m2.3 6.73.94-.94 1.44 1.44L7.4 4.5l.94.94L4.66 9.17z'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 15px center;
+        background-size: 16px;
+    }
+    
+    .form-control.is-invalid {
+        border-color: #dc2626 !important;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc2626'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath d='m5.5 5.5 1 1m0-1-1 1'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 15px center;
+        background-size: 16px;
+    }
+    
+    .char-counter {
+        text-align: right;
+        font-size: var(--font-small);
+        color: var(--text-secondary);
+        margin-top: var(--space-2);
+    }
+    
+    .char-counter.warning {
+        color: #d97706;
+    }
+    
+    .char-counter.danger {
+        color: #dc2626;
+    }
+    
+    .submit-btn {
+        background: linear-gradient(45deg, var(--primary-color), var(--primary-hover));
+        color: white;
+        border: none;
+        padding: var(--space-5) var(--space-8);
+        font-size: var(--font-large);
+        font-weight: 600;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: var(--transition);
+        width: 100%;
+        min-height: 60px;
+    }
+    
+    .submit-btn:hover {
+        background: linear-gradient(45deg, var(--primary-hover), #1e40af);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-hover);
+    }
+    
+    .submit-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+    }
+    
+    .contact-info {
+        background: var(--card-bg);
+        padding: var(--space-6);
+        border-radius: 12px;
+        border: 2px solid var(--border-color);
+        margin-bottom: var(--space-6);
+    }
+    
+    .contact-info h3 {
+        color: var(--primary-color);
+        margin-bottom: var(--space-4);
+        font-size: var(--font-xl);
+    }
+    
+    .contact-info p {
+        margin-bottom: var(--space-3);
+        font-size: var(--font-base);
+        line-height: 1.6;
+    }
+    
+    .alert {
+        padding: var(--space-4);
+        border-radius: 8px;
+        margin-bottom: var(--space-4);
+        font-size: var(--font-base);
+    }
+    
+    .alert-success {
+        background: #d1fae5;
+        color: #065f46;
+        border: 2px solid #a7f3d0;
+    }
+    
+    .alert-error {
+        background: #fee2e2;
+        color: #991b1b;
+        border: 2px solid #fca5a5;
+    }
+    
+    .required-note {
+        font-size: var(--font-small);
+        color: var(--text-secondary);
+        margin-bottom: var(--space-6);
+        font-style: italic;
+    }
+    
+    @media (max-width: 768px) {
+        .contact-form {
+            padding: var(--space-6);
+        }
+        
+        .form-control {
+            font-size: 16px !important;
+            padding: 12px !important;
+        }
+        
+        .submit-btn {
+            font-size: var(--font-base);
+            padding: var(--space-4) var(--space-6);
+            min-height: 50px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Page Header -->
+    <div class="page-header fade-in">
+        <h1 class="page-title">📞 {{ page_title }}</h1>
+        <p class="page-subtitle">{{ page_description }}</p>
+    </div>
+    
+    <!-- Mensagens de Feedback -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} fade-in">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    
+    <div class="row">
+        <!-- Formulário de Contato -->
+        <div class="col-8">
+            <div class="contact-form fade-in">
+                <h2>📝 Envie sua Mensagem</h2>
+                <p class="required-note">* Campos obrigatórios</p>
+                
+                <form method="post" id="contactForm" novalidate>
+                    {% csrf_token %}
+                    
+                    <!-- Nome -->
+                    <div class="form-group">
+                        <label for="{{ form.nome.id_for_label }}">{{ form.nome.label }}</label>
+                        {{ form.nome }}
+                        {% if form.nome.errors %}
+                            <div class="text-danger mt-2">
+                                {% for error in form.nome.errors %}
+                                    <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                        {{ form.email }}
+                        {% if form.email.errors %}
+                            <div class="text-danger mt-2">
+                                {% for error in form.email.errors %}
+                                    <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Telefone -->
+                    <div class="form-group">
+                        <label for="{{ form.telefone.id_for_label }}">{{ form.telefone.label }}</label>
+                        {{ form.telefone }}
+                        <small class="form-text text-muted">Formato: (XX) XXXXX-XXXX</small>
+                        {% if form.telefone.errors %}
+                            <div class="text-danger mt-2">
+                                {% for error in form.telefone.errors %}
+                                    <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Assunto Pré-definido -->
+                    <div class="form-group">
+                        <label for="{{ form.assunto_predefinido.id_for_label }}">{{ form.assunto_predefinido.label }}</label>
+                        {{ form.assunto_predefinido }}
+                        {% if form.assunto_predefinido.errors %}
+                            <div class="text-danger mt-2">
+                                {% for error in form.assunto_predefinido.errors %}
+                                    <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Assunto Personalizado -->
+                    <div class="form-group">
+                        <label for="{{ form.assunto_personalizado.id_for_label }}">{{ form.assunto_personalizado.label }}</label>
+                        {{ form.assunto_personalizado }}
+                        {% if form.assunto_personalizado.errors %}
+                            <div class="text-danger mt-2">
+                                {% for error in form.assunto_personalizado.errors %}
+                                    <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Mensagem -->
+                    <div class="form-group">
+                        <label for="{{ form.mensagem.id_for_label }}">{{ form.mensagem.label }}</label>
+                        {{ form.mensagem }}
+                        <div class="char-counter" id="charCounter">
+                            <span id="charCount">0</span> / 2000 caracteres
+                        </div>
+                        {% if form.mensagem.errors %}
+                            <div class="text-danger mt-2">
+                                {% for error in form.mensagem.errors %}
+                                    <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Erros gerais do formulário -->
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-error">
+                            {% for error in form.non_field_errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    
+                    <!-- Botão de Envio -->
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        📤 Enviar Mensagem
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Informações de Contato -->
+        <div class="col-4">
+            <div class="contact-info fade-in">
+                <h3>📍 Informações de Contato</h3>
+                
+                <p><strong>📍 Endereço:</strong><br>
+                Rua da Amizade, 123<br>
+                Bairro Convivência<br>
+                Cidade do Bem-Estar, CE<br>
+                CEP: 60000-000</p>
+                
+                <p><strong>📞 Telefone:</strong><br>
+                (85) 3333-4444</p>
+                
+                <p><strong>📱 WhatsApp:</strong><br>
+                (85) 99999-8888</p>
+                
+                <p><strong>📧 Email:</strong><br>
+                contato@clubedaamizade.org</p>
+                
+                <p><strong>🕐 Horário de Atendimento:</strong><br>
+                Segunda a Sexta: 8h às 18h<br>
+                Sábados: 9h às 12h</p>
+            </div>
+            
+            <div class="contact-info fade-in">
+                <h3>⏰ Tempo de Resposta</h3>
+                <p>Normalmente respondemos em até <strong>24 horas</strong> durante dias úteis.</p>
+                <p>Para urgências, ligue diretamente para nosso telefone.</p>
+            </div>
+            
+            <div class="contact-info fade-in">
+                <h3>💡 Dicas</h3>
+                <ul style="padding-left: var(--space-6);">
+                    <li>Seja específico no assunto</li>
+                    <li>Forneça detalhes na mensagem</li>
+                    <li>Deixe seu telefone para contato rápido</li>
+                    <li>Verifique seu email regularmente</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// JavaScript para funcionalidades do formulário
+document.addEventListener('DOMContentLoaded', function() {
+    // Elementos do formulário
+    const form = document.getElementById('contactForm');
+    const assuntoPredefinido = document.getElementById('id_assunto_predefinido');
+    const assuntoPersonalizado = document.getElementById('assunto_personalizado');
+    const mensagemField = document.getElementById('id_mensagem');
+    const charCount = document.getElementById('charCount');
+    const charCounter = document.getElementById('charCounter');
+    const submitBtn = document.getElementById('submitBtn');
+    
+    // Função para alternar assunto personalizado
+    window.toggleCustomSubject = function(value) {
+        if (value === 'outro') {
+            assuntoPersonalizado.style.display = 'block';
+            assuntoPersonalizado.required = true;
+            assuntoPersonalizado.focus();
+        } else {
+            assuntoPersonalizado.style.display = 'none';
+            assuntoPersonalizado.required = false;
+            assuntoPersonalizado.value = '';
+        }
+    };
+    
+    // Função para atualizar contador de caracteres
+    window.updateCharCount = function(length) {
+        charCount.textContent = length;
+        
+        // Mudar cor baseado no limite
+        charCounter.classList.remove('warning', 'danger');
+        if (length > 1800) {
+            charCounter.classList.add('danger');
+        } else if (length > 1500) {
+            charCounter.classList.add('warning');
+        }
+    };
+    
+    // Inicializar contador
+    if (mensagemField) {
+        updateCharCount(mensagemField.value.length);
+    }
+    
+    // Validação em tempo real
+    const inputs = form.querySelectorAll('input, textarea, select');
+    inputs.forEach(input => {
+        input.addEventListener('blur', function() {
+            validateField(this);
+        });
+        
+        input.addEventListener('input', function() {
+            if (this.classList.contains('is-invalid')) {
+                validateField(this);
+            }
+        });
+    });
+    
+    // Função de validação de campo
+    function validateField(field) {
+        const value = field.value.trim();
+        let isValid = true;
+        
+        // Validações específicas
+        if (field.hasAttribute('required') && !value) {
+            isValid = false;
+        }
+        
+        if (field.type === 'email' && value) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            isValid = emailRegex.test(value);
+        }
+        
+        if (field.id === 'id_mensagem' && value.length < 10) {
+            isValid = false;
+        }
+        
+        // Aplicar classes visuais
+        field.classList.remove('is-valid', 'is-invalid');
+        if (value) {
+            field.classList.add(isValid ? 'is-valid' : 'is-invalid');
+        }
+        
+        return isValid;
+    }
+    
+    // Validação do formulário antes do envio
+    form.addEventListener('submit', function(e) {
+        let formIsValid = true;
+        
+        inputs.forEach(input => {
+            if (!validateField(input)) {
+                formIsValid = false;
+            }
+        });
+        
+        // Validação do assunto
+        const assuntoPredefinidoValue = assuntoPredefinido.value;
+        const assuntoPersonalizadoValue = assuntoPersonalizado.value.trim();
+        
+        if (!assuntoPredefinidoValue) {
+            formIsValid = false;
+            assuntoPredefinido.classList.add('is-invalid');
+        } else if (assuntoPredefinidoValue === 'outro' && !assuntoPersonalizadoValue) {
+            formIsValid = false;
+            assuntoPersonalizado.classList.add('is-invalid');
+        }
+        
+        if (!formIsValid) {
+            e.preventDefault();
+            
+            // Mostrar toast de erro
+            if (window.showToast) {
+                window.showToast('Por favor, corrija os erros no formulário antes de enviar.', 'error');
+            }
+            
+            // Focar no primeiro campo com erro
+            const firstError = form.querySelector('.is-invalid');
+            if (firstError) {
+                firstError.focus();
+                firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        } else {
+            // Desabilitar botão para evitar duplo envio
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '📤 Enviando...';
+            
+            // Mostrar toast de envio
+            if (window.showToast) {
+                window.showToast('Enviando sua mensagem...', 'info');
+            }
+        }
+    });
+    
+    // Máscara para telefone
+    const telefoneField = document.getElementById('id_telefone');
+    if (telefoneField) {
+        telefoneField.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            
+            if (value.length <= 11) {
+                if (value.length <= 2) {
+                    value = value.replace(/(\d{0,2})/, '($1');
+                } else if (value.length <= 7) {
+                    value = value.replace(/(\d{2})(\d{0,5})/, '($1) $2');
+                } else {
+                    value = value.replace(/(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
+                }
+            }
+            
+            e.target.value = value;
+        });
+    }
+});
+</script>
+{% endblock %}

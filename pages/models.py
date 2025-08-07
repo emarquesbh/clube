@@ -5,6 +5,58 @@ from django.utils.text import slugify
 from django_ckeditor_5.fields import CKEditor5Field
 from ckeditor.fields import RichTextField
 
+class ContatoMensagem(models.Model):
+    """
+    Modelo para armazenar mensagens de contato do site
+    """
+    STATUS_CHOICES = [
+        ('nova', 'Nova'),
+        ('lida', 'Lida'),
+        ('respondida', 'Respondida'),
+        ('arquivada', 'Arquivada'),
+    ]
+    
+    nome = models.CharField(max_length=200, verbose_name="Nome Completo")
+    email = models.EmailField(verbose_name="Email")
+    telefone = models.CharField(max_length=20, blank=True, verbose_name="Telefone")
+    assunto = models.CharField(max_length=200, verbose_name="Assunto")
+    mensagem = models.TextField(verbose_name="Mensagem")
+    status = models.CharField(
+        max_length=20, 
+        choices=STATUS_CHOICES, 
+        default='nova',
+        verbose_name="Status"
+    )
+    data_envio = models.DateTimeField(auto_now_add=True, verbose_name="Data de Envio")
+    data_leitura = models.DateTimeField(null=True, blank=True, verbose_name="Data de Leitura")
+    data_resposta = models.DateTimeField(null=True, blank=True, verbose_name="Data de Resposta")
+    ip_address = models.GenericIPAddressField(null=True, blank=True, verbose_name="IP do Remetente")
+    user_agent = models.TextField(blank=True, verbose_name="Navegador")
+    respondida_por = models.CharField(max_length=200, blank=True, verbose_name="Respondida por")
+    observacoes_admin = models.TextField(blank=True, verbose_name="Observações Administrativas")
+    
+    class Meta:
+        verbose_name = "Mensagem de Contato"
+        verbose_name_plural = "Mensagens de Contato"
+        ordering = ['-data_envio']
+    
+    def __str__(self):
+        return f"{self.nome} - {self.assunto} ({self.get_status_display()})"
+    
+    def marcar_como_lida(self):
+        """Marca a mensagem como lida"""
+        if self.status == 'nova':
+            self.status = 'lida'
+            self.data_leitura = timezone.now()
+            self.save()
+    
+    def marcar_como_respondida(self, respondida_por=None):
+        """Marca a mensagem como respondida"""
+        self.status = 'respondida'
+        self.data_resposta = timezone.now()
+        if respondida_por:
+            self.respondida_por = respondida_por
+        self.save()
 class Pagina(models.Model):
     titulo = models.CharField(max_length=255, verbose_name="Título")
     conteudo = RichTextField(verbose_name="Conteúdo da Página")
