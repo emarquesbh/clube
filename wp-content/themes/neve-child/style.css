@@ -1,0 +1,270 @@
+/*
+Tema filho do Neve para o Clube da Amizade Pe. Antônio Gonçalves
+Author: Eduardo Marques
+Template: neve
+Version: 1.0.0
+*/
+
+/* ==========================================================================
+   IMPORTAÇÃO DO TEMA PAI
+   ========================================================================== */
+
+/* O CSS do tema pai será carregado via functions.php */
+
+/* ==========================================================================
+   MELHORIAS DE ACESSIBILIDADE
+   ========================================================================== */
+
+/* Skip Links - Links para pular navegação */
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    z-index: 999999;
+    padding: 12px 16px;
+    background: #000000;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 0 0 4px 0;
+    transition: all 0.3s ease;
+}
+
+.skip-link:focus {
+    left: 10px;
+    top: 10px;
+    outline: 3px solid #005fcc;
+    outline-offset: 2px;
+}
+
+/* Melhorar indicadores de foco para navegação por teclado */
+a:focus,
+button:focus,
+input:focus,
+textarea:focus,
+select:focus,
+.elementor-button:focus {
+    outline: 3px solid #005fcc !important;
+    outline-offset: 2px !important;
+    box-shadow: 0 0 0 1px #ffffff, 0 0 0 4px #005fcc !important;
+}
+
+/* Indicador visual quando navegando por teclado */
+.keyboard-navigation *:focus {
+    outline: 3px solid #005fcc !important;
+    outline-offset: 2px !important;
+}
+
+/* ==========================================================================
+   CONTROLES DE ACESSIBILIDADE
+   ========================================================================== */
+
+/* Widget de acessibilidade */
+.accessibility-toolbar {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    background: #ffffff;
+    border: 2px solid #005fcc;
+    border-radius: 8px 0 0 8px;
+    padding: 15px 10px;
+    z-index: 999999;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.accessibility-toolbar.hidden {
+    transform: translateY(-50%) translateX(100%);
+}
+
+.accessibility-toolbar button {
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin: 5px 0;
+    border: none;
+    background: #005fcc;
+    color: #ffffff;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.accessibility-toolbar button:hover,
+.accessibility-toolbar button:focus {
+    background: #003d8a;
+    transform: scale(1.1);
+}
+
+.accessibility-toolbar-toggle {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    background: #005fcc;
+    color: #ffffff;
+    border: none;
+    padding: 15px 8px;
+    border-radius: 8px 0 0 8px;
+    cursor: pointer;
+    z-index: 999998;
+    font-size: 18px;
+}
+
+/* ==========================================================================
+   CONTROLES DE FONTE
+   ========================================================================== */
+
+/* Tamanhos de fonte */
+.font-size-small * { font-size: 14px !important; line-height: 1.6 !important; }
+.font-size-medium * { font-size: 16px !important; line-height: 1.6 !important; }
+.font-size-large * { font-size: 18px !important; line-height: 1.6 !important; }
+.font-size-xl * { font-size: 22px !important; line-height: 1.6 !important; }
+
+/* Exceções para elementos que não devem mudar */
+.font-size-small .skip-link,
+.font-size-medium .skip-link,
+.font-size-large .skip-link,
+.font-size-xl .skip-link,
+.font-size-small .accessibility-toolbar,
+.font-size-medium .accessibility-toolbar,
+.font-size-large .accessibility-toolbar,
+.font-size-xl .accessibility-toolbar {
+    font-size: 14px !important;
+}
+
+/* ==========================================================================
+   MODO ESCURO
+   ========================================================================== */
+
+.dark-mode {
+    background-color: #1a1a1a !important;
+    color: #ffffff !important;
+}
+
+.dark-mode .site-header,
+.dark-mode .site-footer {
+    background-color: #2d2d2d !important;
+    color: #ffffff !important;
+}
+
+.dark-mode a {
+    color: #66b3ff !important;
+}
+
+.dark-mode a:hover {
+    color: #99ccff !important;
+}
+
+.dark-mode button,
+.dark-mode .elementor-button {
+    background-color: #005fcc !important;
+    color: #ffffff !important;
+    border-color: #005fcc !important;
+}
+
+.dark-mode input,
+.dark-mode textarea,
+.dark-mode select {
+    background-color: #2d2d2d !important;
+    color: #ffffff !important;
+    border-color: #555555 !important;
+}
+
+.dark-mode .accessibility-toolbar {
+    background-color: #2d2d2d !important;
+    border-color: #66b3ff !important;
+}
+
+/* ==========================================================================
+   ALTO CONTRASTE
+   ========================================================================== */
+
+.high-contrast {
+    filter: contrast(150%) !important;
+}
+
+.high-contrast img {
+    filter: contrast(120%) !important;
+}
+
+/* ==========================================================================
+   MELHORIAS MOBILE-FIRST
+   ========================================================================== */
+
+/* Melhorar área de toque em dispositivos móveis */
+@media (max-width: 768px) {
+    button,
+    .elementor-button,
+    a {
+        min-height: 44px;
+        min-width: 44px;
+        padding: 12px 16px;
+    }
+    
+    .accessibility-toolbar {
+        right: 10px;
+        top: auto;
+        bottom: 20px;
+        transform: none;
+        border-radius: 8px;
+    }
+    
+    .accessibility-toolbar.hidden {
+        transform: translateY(100%);
+    }
+    
+    .accessibility-toolbar-toggle {
+        right: 10px;
+        top: auto;
+        bottom: 20px;
+        transform: none;
+        border-radius: 8px;
+    }
+}
+
+/* ==========================================================================
+   CUSTOMIZAÇÕES ESPECÍFICAS DO CLUBE DA AMIZADE
+   ========================================================================== */
+
+/* Cores do tema personalizado */
+:root {
+    --clube-primary: #005fcc;
+    --clube-secondary: #66b3ff;
+    --clube-accent: #ff6b35;
+    --clube-dark: #1a1a1a;
+    --clube-light: #f8f9fa;
+}
+
+/* Estilos específicos podem ser adicionados aqui */
+.clube-destaque {
+    background: linear-gradient(135deg, var(--clube-primary), var(--clube-secondary));
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+/* ==========================================================================
+   PRINT STYLES - ACESSIBILIDADE PARA IMPRESSÃO
+   ========================================================================== */
+
+@media print {
+    .accessibility-toolbar,
+    .accessibility-toolbar-toggle,
+    .skip-link {
+        display: none !important;
+    }
+    
+    * {
+        background: white !important;
+        color: black !important;
+    }
+    
+    a::after {
+        content: " (" attr(href) ")";
+        font-size: 12px;
+    }
+}

@@ -1,0 +1,809 @@
+# Translation of Plugins - Ally &#8211; Web Accessibility &amp; Usability - Stable (latest release) in Portuguese (Brazil)
+# This file is distributed under the same license as the Plugins - Ally &#8211; Web Accessibility &amp; Usability - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2025-08-10 06:03:24+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: GlotPress/4.0.1\n"
+"Language: pt_BR\n"
+"Project-Id-Version: Plugins - Ally &#8211; Web Accessibility &amp; Usability - Stable (latest release)\n"
+
+#: modules/scanner/components/list-column.php:113
+msgid "Scan"
+msgstr "Examinar"
+
+#: modules/scanner/components/list-column.php:109
+#: modules/scanner/components/list-column.php:110
+msgid "Scan URL"
+msgstr "Examinar URL"
+
+#: modules/scanner/components/list-column.php:107
+msgid "Fix"
+msgstr "Corrigir"
+
+#. translators: %d: number of issues to fix
+#: modules/scanner/components/list-column.php:97
+#: modules/scanner/components/list-column.php:102
+msgid "Fix %d issue"
+msgid_plural "Fix %d issues"
+msgstr[0] "Corrigir %d problema"
+msgstr[1] "Corrigir %d problemas"
+
+#: modules/scanner/components/list-column.php:91
+msgid "All accessibility issues resolved"
+msgstr "Todos os problemas de acessibilidade foram resolvidos"
+
+#: modules/widget/components/ally-trigger.php:18
+#: assets/build/gutenberg-custom-link.js:1
+#: modules/widget/assets/js/ally-gutenberg-block.js:32
+msgid "Ally Widget Trigger"
+msgstr "Acionador do widget do Ally"
+
+#: modules/core/components/svg.php:181
+msgid "This file is not allowed for security reasons."
+msgstr "Este arquivo não é permitido, por motivos de segurança."
+
+#: modules/analytics/rest/statistic.php:46
+msgid "Bad request."
+msgstr "Solicitação inválida."
+
+#: modules/settings/notices/quota-100.php:25
+msgid "Oh no! Ally has reached the monthly widget visits limit."
+msgstr "Ah, não! O Ally atingiu o limite mensal de visitas ao widget."
+
+#: modules/settings/notices/quota-80.php:28
+#: modules/settings/notices/quota-100.php:28
+msgid "Upgrade Now"
+msgstr "Atualizar agora"
+
+#: modules/settings/notices/quota-80.php:26
+#: modules/settings/notices/quota-100.php:26
+msgid "Upgrade now to increase your plan's monthly widget visits limit and ensure all accessibility features remain available for every visitor."
+msgstr "Atualize agora para aumentar o limite de visitas mensais do widget no seu plano, garantindo que todos os recursos de acessibilidade permaneçam disponíveis para todos os visitantes."
+
+#: modules/settings/notices/quota-80.php:25
+msgid "You've reached 80% of your widget monthly visits in Ally!"
+msgstr "Você atingiu 80% das visitas mensais do seu widget no Ally!"
+
+#. Plugin Name of the plugin
+#: pojo-accessibility.php
+msgid "Ally - Web Accessibility & Usability"
+msgstr "Ally - Acessibilidade e usabilidade na web"
+
+#: modules/core/components/revert-to-legacy.php:41
+msgid "Revert to legacy"
+msgstr "Reverter para o antigo"
+
+#: modules/scanner/components/list-column.php:34 modules/settings/module.php:52
+#: assets/build/admin.js:494 modules/settings/assets/js/layouts/top-bar.js:25
+msgid "Ally"
+msgstr "Ally"
+
+#: modules/settings/components/settings-pointer.php:33
+#: modules/settings/module.php:51
+msgid "Ally - Web Accessibility"
+msgstr "Ally - Web Accessibility"
+
+#: modules/legacy/components/upgrade.php:198
+msgid "Ally - Web Accessibility is our new and improved accessibility plugin. Get advanced customization, control, and customer support with one simple switch."
+msgstr "O “Ally - Web Accessibility” é o nosso novo e melhorado plugin de acessibilidade. Conte com personalização avançada, controle e suporte ao cliente, com uma simples mudança."
+
+#: classes/rest/route.php:240
+msgid "Both `message` and `code` keys must be provided"
+msgstr "As chaves “message” e “code” precisam ser fornecidas"
+
+#: modules/connect/rest/switch-domain.php:51
+msgid "Client ID not found"
+msgstr "ID do cliente não encontrado"
+
+#: modules/legacy/components/upgrade.php:392
+msgid "Confirm and switch"
+msgstr "Confirmar e mudar"
+
+#: modules/legacy/components/upgrade.php:388
+msgid "Confirm switching to Ally"
+msgstr "Confirme a mudança para o Ally"
+
+#: modules/core/module.php:44 assets/build/admin.js:1563
+#: modules/settings/assets/js/components/url-mismatch-modal/index.js:127
+msgid "Connect"
+msgstr "Conectar"
+
+#: modules/connect/rest/authorize.php:73
+msgid "Connected domain mismatch"
+msgstr "O domínio conectado não corresponde"
+
+#: modules/legacy/components/upgrade.php:207
+msgid "Create or add your Accessibility Statement instantly"
+msgstr "Crie ou adicione sua declaração de acessibilidade instantaneamente"
+
+#: modules/legacy/components/upgrade.php:205
+msgid "Decide and manage which features you want displayed"
+msgstr "Defina e gerencie os recursos que você quer exibir"
+
+#: modules/connect/rest/switch-domain.php:58
+msgid "Domain updated!"
+msgstr "Domínio atualizado!"
+
+#. Author of the plugin
+#: pojo-accessibility.php
+msgid "Elementor.com"
+msgstr "Elementor.com"
+
+#: modules/settings/components/settings-pointer.php:39
+msgid "Get Started"
+msgstr "Começar"
+
+#. Description of the plugin
+#: pojo-accessibility.php
+msgid "Improve your website’s accessibility with ease. Customize capabilities such as text resizing, contrast modes, link highlights, and easily generate an accessibility statement to demonstrate your commitment to inclusivity."
+msgstr "Melhore a acessibilidade do seu site com muita facilidade. Personalize recursos, como redimensionamento de texto, modos de contraste, destaques de links e gere uma declaração de acessibilidade para demonstrar seu compromisso com a inclusão."
+
+#: classes/rest/route.php:247
+msgid "Internal server error"
+msgstr "Erro interno no servidor"
+
+#: classes/rest/route.php:375
+msgid "Invalid nonce"
+msgstr "Nonce inválido"
+
+#: modules/connect/classes/service.php:217
+msgid "JWT class not found"
+msgstr "Classe JWT não encontrada"
+
+#: modules/legacy/components/upgrade.php:391
+msgid "Keep Current"
+msgstr "Manter o atual"
+
+#: modules/legacy/components/upgrade.php:148
+#: modules/legacy/notices/sticky-deprecated-nag.php:27
+msgid "Learn More"
+msgstr "Saiba mais"
+
+#: modules/legacy/notices/dismissible-deprecated-nag.php:32
+msgid "Learn more"
+msgstr "Saiba mais"
+
+#: modules/legacy/components/upgrade.php:210
+msgid "Learn more about the changes"
+msgstr "Saiba mais sobre as alterações"
+
+#: modules/connect/classes/service.php:206
+msgid "Missing JWKS URL"
+msgstr "URL do JWKS ausente"
+
+#: modules/legacy/notices/sticky-deprecated-nag.php:24
+msgid "New accessibility plugin available!"
+msgstr "Novo plugin de acessibilidade disponível!"
+
+#: modules/legacy/components/upgrade.php:146
+msgid "New! Switch to our updated accessibility widget for better features and control."
+msgstr "Novo! Mude para o nosso widget de acessibilidade atualizado, para ter melhores recursos e controle."
+
+#: classes/rest/route.php:307
+msgid "No route was found matching the URL and request method"
+msgstr "Nenhuma rota foi encontrada correspondente ao URL e ao método de solicitação"
+
+#: modules/legacy/components/upgrade.php:212 assets/build/admin.js:552
+#: assets/build/scanner.js:1837
+#: modules/scanner/assets/js/components/delete-remediation-modal/index.js:27
+#: modules/settings/assets/js/components/analytics/analytics-toggle.js:118
+msgid "Not now"
+msgstr "Agora não"
+
+#: modules/legacy/components/upgrade.php:590
+msgid "Our new, improved accessibility plugin is now available! Ally - Web Accessibility is packed with advanced styling options, improved feature controls, and so much more."
+msgstr "Nosso novo e melhorado plugin de acessibilidade já está disponível! O Ally - Web Accessibility vem repleto de opções avançadas de estilo, controles de recursos avançados e muito mais."
+
+#: modules/legacy/components/upgrade.php:202
+msgid "Personalize colors, styles, and layouts to match your brand"
+msgstr "Personalize as cores, estilos e layouts para que correspondam à sua marca"
+
+#: classes/module-base.php:132 classes/module-base.php:143
+msgid "Something went wrong."
+msgstr "Algo deu errado."
+
+#: modules/settings/components/settings-pointer.php:34
+msgid "Start setting up and customizing your site's accessibility widget."
+msgstr "Comece a configurar e personalizar o widget de acessibilidade do seu site."
+
+#: modules/legacy/components/upgrade.php:150
+msgid "Switch Now"
+msgstr "Mudar agora"
+
+#: modules/legacy/notices/dismissible-deprecated-nag.php:34
+msgid "Switch To Ally - Web Accessibility"
+msgstr "Mudar para o Ally - Web Accessibility"
+
+#: modules/legacy/components/upgrade.php:213
+#: modules/legacy/notices/sticky-deprecated-nag.php:29
+msgid "Switch to Ally"
+msgstr "Mudar para o Ally"
+
+#: modules/legacy/components/upgrade.php:197
+msgid "Switch to our new accessibility widget"
+msgstr "Mude para o nosso novo widget de acessibilidade"
+
+#: modules/legacy/notices/dismissible-deprecated-nag.php:30
+msgid "Time to take your site’s accessibility to the next level with Ally - Web Accessibility, our newest plugin packed with advanced widget customization, flexible feature controls, and a built-in statement generator. Want more details before switching?"
+msgstr "Chegou a hora de levar a acessibilidade do seu site para o próximo nível com o Ally - Web Accessibility, nosso mais novo plugin repleto de personalização avançada de widgets, controles flexíveis de recursos e um gerador de declarações integrado. Quer mais detalhes antes de mudar?"
+
+#: modules/legacy/components/upgrade.php:595
+msgid "View more details"
+msgstr "Ver mais detalhes"
+
+#: modules/connect/rest/authorize.php:52
+msgid "You are already connected"
+msgstr "Você já está conectado"
+
+#: classes/rest/route.php:254 classes/rest/route.php:390
+msgid "You do not have sufficient permissions to access this data."
+msgstr "Você não tem permissões suficientes, para acessar estes dados."
+
+#: modules/legacy/notices/sticky-deprecated-nag.php:25
+msgid "Your current plugin is no longer supported. Switch to Ally - Web Accessibility now to access more customization, control, and tools for a more inclusive site."
+msgstr "Seu plugin atual não é mais compatível. Mude para o Ally - Web Accessibility agora para ter acesso a mais personalização, controle e ferramentas para um site mais inclusivo."
+
+#: modules/legacy/components/upgrade.php:389
+msgid "You’re about to switch from One click accessibility, which we no longer support, to Ally - Web Accessibility. Any previous settings will be removed, and this action cannot be undone."
+msgstr "Você está prestes a mudar do One Click Accessibility, ao qual não damos mais suporte, para o Ally - Web Accessibility. Todas as configurações anteriores serão removidas, e esta ação não pode ser desfeita."
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+#: pojo-accessibility.php
+msgid "https://elementor.com/"
+msgstr "https://elementor.com/"
+
+#: modules/legacy/components/settings.php:347
+msgid "Skip to Content Element ID"
+msgstr "ID do elemento “Ir para o conteúdo”"
+
+#: modules/legacy/components/settings.php:655
+#: modules/legacy/components/settings.php:656
+#: modules/legacy/components/settings.php:669
+msgid "Customize"
+msgstr "Personalizar"
+
+#: modules/legacy/components/settings.php:668
+msgid "Customize Toolbar"
+msgstr "Personalizar a barra de ferramentas"
+
+#: modules/legacy/components/settings.php:666
+msgid "Set Accessibility Toolbar Settings"
+msgstr "Definir configurações da barra de ferramentas de acessibilidade"
+
+#: modules/legacy/components/settings.php:664
+msgid "Set Accessibility settings"
+msgstr "Definir configurações de acessibilidade"
+
+#: modules/legacy/components/settings.php:648
+#: modules/legacy/components/settings.php:667
+msgid "Toolbar"
+msgstr "Barra de ferramentas"
+
+#: modules/core/module.php:36 modules/legacy/components/settings.php:640
+#: modules/legacy/components/settings.php:665
+msgid "Settings"
+msgstr "Configurações"
+
+#: modules/legacy/components/admin.php:131
+msgid "Learn more about Elementor"
+msgstr "Saiba mais sobre o Elementor"
+
+#: modules/legacy/components/customizer.php:173
+#: modules/legacy/components/settings.php:647
+msgid "Accessibility Toolbar"
+msgstr "Barra de ferramentas de acessibilidade"
+
+#: modules/legacy/components/customizer.php:101
+msgid "Active Background"
+msgstr "Fundo ativo"
+
+#: modules/legacy/components/customizer.php:111
+msgid "Active Color"
+msgstr "Cor ativa"
+
+#: modules/legacy/components/settings.php:336
+msgid "Add skip to content link when using keyboard."
+msgstr "Adicionar link “Ir para o conteúdo” ao usar o teclado."
+
+#: modules/legacy/components/customizer.php:172
+msgid "Additional Toolbar settings can be configured at the %s page."
+msgstr "Configurações adicionais da Barra de Ferramentas podem ser configuradas na página %s."
+
+#: modules/legacy/components/admin.php:130
+msgid "Create high-end, pixel perfect websites at record speeds. Any theme, any page, any design. The most advanced frontend drag & drop page builder."
+msgstr "Crie sites de alta qualidade, com pixels perfeitos, em velocidade recorde. Qualquer tema, qualquer página, qualquer design. O construtor de páginas de interface de arrastar e soltar mais avançado."
+
+#: modules/legacy/components/settings.php:398
+msgid "Define how long your toolbar settings will be remembered"
+msgstr "Defina por quanto tempo as configurações da barra de ferramentas serão lembradas"
+
+#: modules/legacy/components/admin.php:129
+msgid "Do You Like One Click Accessibility? You'll Love Elementor!"
+msgstr "Você gosta do One Click Accessibility? Vai adorar o Elementor!"
+
+#. translators: 1: One Click Accessibility, 2: Link to plugin review
+#: modules/legacy/components/admin.php:160
+msgid "Enjoyed %1$s? Please leave us a %2$s rating. We really appreciate your support!"
+msgstr "Satisfeito com o %1$s? Nos deixe uma avaliação de %2$s. Agradecemos muito seu apoio!"
+
+#: modules/legacy/components/admin.php:135
+msgid "Install Now For Free!"
+msgstr "Instale agora gratuitamente!"
+
+#: modules/legacy/components/customizer.php:47
+msgid "Offset from Top (Desktop)"
+msgstr "Deslocamento da parte superior (desktop)"
+
+#: modules/legacy/components/customizer.php:55
+msgid "Offset from Top (Mobile)"
+msgstr "Deslocamento da parte superior (dispositivo móvel)"
+
+#: modules/legacy/components/customizer.php:25
+msgid "One Click"
+msgstr "Um clique"
+
+#: modules/legacy/components/admin.php:161
+#: modules/legacy/components/settings.php:715
+#: modules/legacy/components/settings.php:716
+msgid "One Click Accessibility"
+msgstr "Acessibilidade com um clique"
+
+#: modules/legacy/components/customizer.php:162
+msgid "Set Focus outline color"
+msgstr "Definir a cor do contorno em foco"
+
+#: modules/legacy/components/customizer.php:134
+msgid "Set Focus outline style"
+msgstr "Definir o estilo de contorno em foco"
+
+#: modules/legacy/components/customizer.php:154
+msgid "Set Focus outline width"
+msgstr "Definir a largura do contorno em foco"
+
+#: modules/legacy/components/customizer.php:30
+msgid "Set Toolbar Icon"
+msgstr "Definir o ícone da barra de ferramentas"
+
+#: modules/legacy/components/customizer.php:42
+msgid "Set Toolbar Position"
+msgstr "Definir a posição da barra de ferramentas"
+
+#: modules/legacy/components/customizer.php:106
+msgid "Set Toolbar active background color"
+msgstr "Definir a cor de fundo ativa da barra de ferramentas"
+
+#: modules/legacy/components/customizer.php:116
+msgid "Set Toolbar active text color"
+msgstr "Definir a cor do texto ativo da barra de ferramentas"
+
+#: modules/legacy/components/customizer.php:68
+msgid "Set Toolbar background color"
+msgstr "Definir a cor de fundo da barra de ferramentas"
+
+#: modules/legacy/components/customizer.php:78
+msgid "Set Toolbar text color"
+msgstr "Definir a cor do texto da barra de ferramentas"
+
+#: modules/legacy/components/customizer.php:86
+msgid "Set Toolbar toggle button background color"
+msgstr "Definir a cor de fundo do botão de alternância da barra de ferramentas"
+
+#: modules/legacy/components/customizer.php:96
+msgid "Set Toolbar toggle button icon color"
+msgstr "Definir a cor do ícone do botão de alternância da barra de ferramentas"
+
+#: modules/legacy/components/customizer.php:50
+msgid "Set Toolbar top offset (Desktop)"
+msgstr "Definir o deslocamento superior da barra de ferramentas (desktop)"
+
+#: modules/legacy/components/customizer.php:58
+msgid "Set Toolbar top offset (Mobile)"
+msgstr "Definir o deslocamento superior da barra de ferramentas (dispositivo móvel)"
+
+#: modules/legacy/components/settings.php:372
+msgid "This option will add <code>role=\"link\"</code> to all links on the page."
+msgstr "Esta opção irá adicionar <code>role=\"link\"</code> a todos os links na página."
+
+#: modules/legacy/components/customizer.php:63
+msgid "Toolbar Background"
+msgstr "Fundo da barra de ferramentas"
+
+#: modules/legacy/components/customizer.php:73
+msgid "Toolbar Color"
+msgstr "Cor da barra de ferramentas"
+
+#: modules/legacy/components/customizer.php:22
+msgid "Toolbar Icon"
+msgstr "Ícone da barra de ferramentas"
+
+#: modules/legacy/components/customizer.php:35
+msgid "Toolbar Position"
+msgstr "Posição da barra de ferramentas"
+
+#: modules/legacy/components/customizer.php:171
+msgid "Use the control below to customize the appearance and layout of the Accessibility Toolbar"
+msgstr "Use o controle abaixo, para personalizar a aparência e o layout da barra de ferramentas de acessibilidade"
+
+#: modules/legacy/components/customizer.php:26
+msgid "Wheelchair"
+msgstr "Cadeira de rodas"
+
+#: modules/legacy/components/settings.php:407
+msgid "1 Month"
+msgstr "1 mês"
+
+#: modules/legacy/components/settings.php:403
+msgid "1 Day"
+msgstr "1 dia"
+
+#: modules/legacy/components/settings.php:400
+msgid "1 Hour"
+msgstr "1 hora"
+
+#: modules/legacy/components/settings.php:406
+msgid "1 Week"
+msgstr "1 semana"
+
+#: modules/legacy/components/settings.php:402
+msgid "12 Hours"
+msgstr "12 horas"
+
+#: modules/legacy/components/settings.php:404
+msgid "2 Days"
+msgstr "2 dias"
+
+#: modules/legacy/components/settings.php:405
+msgid "3 Days"
+msgstr "3 dias"
+
+#: modules/legacy/components/settings.php:401
+msgid "6 Hours"
+msgstr "6 horas"
+
+#: modules/legacy/components/settings.php:384
+msgid "Consistent accessibility throughout your site visit. Site remembers you and stays accessible."
+msgstr "Acessibilidade consistente durante toda a visita ao seu site. O site se lembra de você e permanece acessível."
+
+#: modules/legacy/components/settings.php:396
+msgid "Remember user for"
+msgstr "Lembrar do usuário por"
+
+#: modules/legacy/components/settings.php:383
+msgid "Sitewide Accessibility"
+msgstr "Acessibilidade em todo o site"
+
+#: modules/legacy/components/settings.php:639
+msgid "Accessibility Settings"
+msgstr "Configurações de acessibilidade"
+
+#: modules/legacy/components/customizer.php:125
+msgid "Dotted"
+msgstr "Pontilhado"
+
+#: modules/legacy/components/customizer.php:39
+msgid "Right"
+msgstr "Direita"
+
+#: modules/legacy/components/customizer.php:38
+msgid "Left"
+msgstr "Esquerda"
+
+#: modules/legacy/components/settings.php:47
+msgid "Show on all devices"
+msgstr "Mostrar em todos os dispositivos"
+
+#: modules/legacy/components/settings.php:323
+msgid "Add outline to elements on keyboard focus."
+msgstr "Adicione contorno aos elementos no foco do teclado."
+
+#: modules/legacy/components/customizer.php:27
+#: modules/legacy/components/customizer.php:177
+#: modules/legacy/components/settings.php:630
+#: modules/legacy/components/settings.php:631
+#: modules/legacy/components/upgrade.php:589
+msgid "Accessibility"
+msgstr "Acessibilidade"
+
+#: modules/legacy/components/customizer.php:131
+msgid "Initial"
+msgstr "Inicial"
+
+#: modules/legacy/components/settings.php:78
+#: modules/legacy/components/settings.php:109
+#: modules/legacy/components/settings.php:131
+#: modules/legacy/components/settings.php:153
+#: modules/legacy/components/settings.php:175
+#: modules/legacy/components/settings.php:197
+#: modules/legacy/components/settings.php:219
+#: modules/legacy/components/settings.php:325
+#: modules/legacy/components/settings.php:338
+#: modules/legacy/components/settings.php:361
+#: modules/legacy/components/settings.php:374
+#: modules/legacy/components/settings.php:387 assets/build/scanner.js:1849
+#: modules/scanner/assets/js/components/remediation-form/remediation-snippet.js:218
+msgid "Enable"
+msgstr "Ativar"
+
+#: modules/legacy/components/settings.php:64
+msgid "Title"
+msgstr "Título"
+
+#: modules/legacy/components/settings.php:54
+#: modules/legacy/components/settings.php:79
+#: modules/legacy/components/settings.php:110
+#: modules/legacy/components/settings.php:132
+#: modules/legacy/components/settings.php:154
+#: modules/legacy/components/settings.php:176
+#: modules/legacy/components/settings.php:198
+#: modules/legacy/components/settings.php:220
+#: modules/legacy/components/settings.php:326
+#: modules/legacy/components/settings.php:339
+#: modules/legacy/components/settings.php:362
+#: modules/legacy/components/settings.php:375
+#: modules/legacy/components/settings.php:388 assets/build/scanner.js:1849
+#: modules/scanner/assets/js/components/remediation-form/remediation-snippet.js:207
+msgid "Disable"
+msgstr "Desativar"
+
+#: modules/legacy/components/customizer.php:127
+msgid "Double"
+msgstr "Duplo"
+
+#: modules/legacy/components/customizer.php:124
+msgid "Solid"
+msgstr "Sólido"
+
+#: modules/legacy/components/customizer.php:130
+msgid "Outset"
+msgstr "Externo"
+
+#: modules/legacy/components/settings.php:68
+msgid "Accessibility Tools"
+msgstr "Ferramentas de acessibilidade"
+
+#: modules/legacy/components/settings.php:370
+msgid "Add landmark roles to all links"
+msgstr "Adicionar funções de referência a todos os links"
+
+#: pojo-accessibility.php:43 pojo-accessibility.php:53
+msgid "Cheatin&#8217; huh?"
+msgstr "Trapaceando, hein?"
+
+#: modules/legacy/components/customizer.php:126
+msgid "Dashed"
+msgstr "Tracejado"
+
+#: modules/legacy/components/settings.php:96
+#: modules/legacy/components/settings.php:99
+msgid "Decrease Text"
+msgstr "Diminuir texto"
+
+#: modules/legacy/components/settings.php:44
+msgid "Display Toolbar"
+msgstr "Exibir barra de ferramentas"
+
+#: modules/legacy/components/settings.php:280 assets/build/admin.js:1490
+#: assets/build/scanner.js:1481
+#: modules/settings/assets/js/helpers/accessibility-statement.js:27
+msgid "Feedback"
+msgstr "Feedback"
+
+#: modules/legacy/components/settings.php:286
+msgid "Feedback Link"
+msgstr "Link do feedback"
+
+#: modules/legacy/components/settings.php:277
+msgid "Feedback Title"
+msgstr "Título do feedback"
+
+#: modules/legacy/components/customizer.php:159
+msgid "Focus Outline Color"
+msgstr "Cor do contorno em foco"
+
+#: modules/legacy/components/customizer.php:121
+msgid "Focus Outline Style"
+msgstr "Estilo do contorno em foco"
+
+#: modules/legacy/components/customizer.php:139
+msgid "Focus Outline Width"
+msgstr "Largura do contorno em foco"
+
+#: modules/legacy/components/settings.php:307
+msgid "For style settings of accessibility tools go to > Customize > <a href=\"%s\">Accessibility</a>."
+msgstr "Para as configurações de estilo das ferramentas de acessibilidade, acesse > Personalizar > <a href=\"%s\">Acessibilidade</a>."
+
+#: modules/legacy/components/settings.php:416
+msgid "General Settings"
+msgstr "Configurações gerais"
+
+#: modules/legacy/components/settings.php:105
+#: modules/legacy/components/settings.php:121
+msgid "Grayscale"
+msgstr "Escala de cinza"
+
+#: modules/legacy/components/settings.php:118
+msgid "Grayscale Title"
+msgstr "Título em escala de cinza"
+
+#: modules/legacy/components/customizer.php:128
+msgid "Groove"
+msgstr "Sulco"
+
+#: modules/legacy/components/settings.php:260 assets/build/admin.js:494
+#: modules/settings/assets/js/components/admin-top-bar/index.js:29
+#: modules/settings/assets/js/layouts/top-bar-menu.js:82
+#: modules/settings/assets/js/layouts/top-bar-menu.js:92
+msgid "Help"
+msgstr "Ajuda"
+
+#: modules/legacy/components/settings.php:266
+msgid "Help Link"
+msgstr "Link da ajuda"
+
+#: modules/legacy/components/settings.php:257
+msgid "Help Title"
+msgstr "Título da ajuda"
+
+#: modules/legacy/components/settings.php:51
+msgid "Hidden Desktop"
+msgstr "Oculto em desktop"
+
+#: modules/legacy/components/settings.php:53
+msgid "Hidden Phone"
+msgstr "Oculto em celular"
+
+#: modules/legacy/components/settings.php:52
+msgid "Hidden Tablet"
+msgstr "Oculto em tablet"
+
+#: modules/legacy/components/settings.php:127
+#: modules/legacy/components/settings.php:143
+msgid "High Contrast"
+msgstr "Alto contraste"
+
+#: modules/legacy/components/settings.php:140
+msgid "High Contrast Title"
+msgstr "Título com alto contraste"
+
+#: modules/legacy/components/settings.php:87
+#: modules/legacy/components/settings.php:90
+msgid "Increase Text"
+msgstr "Aumentar texto"
+
+#: modules/legacy/components/settings.php:171
+#: modules/legacy/components/settings.php:187
+msgid "Light Background"
+msgstr "Fundo claro"
+
+#: modules/legacy/components/settings.php:184
+msgid "Light Background Title"
+msgstr "Título com fundo claro"
+
+#: modules/legacy/components/settings.php:289
+msgid "Link for feedback page in your website. Leave blank to disable."
+msgstr "Link para a página do feedback do seu site. Deixe em branco para desativar."
+
+#: modules/legacy/components/settings.php:269
+msgid "Link for help page in your website. Leave blank to disable."
+msgstr "Link para a página de ajuda do seu site. Deixe em branco para desativar."
+
+#: modules/legacy/components/settings.php:193
+#: modules/legacy/components/settings.php:209
+msgid "Links Underline"
+msgstr "Links sublinhados"
+
+#: modules/legacy/components/settings.php:206
+msgid "Links Underline Title"
+msgstr "Título com links sublinhados"
+
+#: modules/legacy/components/settings.php:149
+#: modules/legacy/components/settings.php:165
+msgid "Negative Contrast"
+msgstr "Contraste negativo"
+
+#: modules/legacy/components/settings.php:162
+msgid "Negative Contrast Title"
+msgstr "Título com contraste negativo"
+
+#: modules/legacy/components/frontend.php:120
+msgid "Open toolbar"
+msgstr "Abrir a barra de ferramentas"
+
+#: modules/legacy/components/settings.php:215
+#: modules/legacy/components/settings.php:231
+msgid "Readable Font"
+msgstr "Fonte legível"
+
+#: modules/legacy/components/settings.php:228
+msgid "Readable Font Title"
+msgstr "Título com fonte legível"
+
+#: modules/legacy/components/settings.php:356
+msgid "Remove target attribute from links"
+msgstr "Remover o atributo de destino dos links"
+
+#: modules/legacy/components/frontend.php:198
+#: modules/legacy/components/frontend.php:199 assets/build/scanner.js:1849
+#: modules/scanner/assets/js/components/color-contrast-form/color-set.js:115
+msgid "Reset"
+msgstr "Redefinir"
+
+#: modules/legacy/components/settings.php:74
+msgid "Resize Font"
+msgstr "Redimensionar fonte"
+
+#: modules/legacy/components/customizer.php:129
+msgid "Ridge"
+msgstr "Saliência"
+
+#: modules/legacy/components/settings.php:334
+msgid "Skip to Content link"
+msgstr "Ir para o link do conteúdo"
+
+#: modules/core/components/skip-link.php:49
+#: modules/legacy/components/frontend.php:81
+msgid "Skip to content"
+msgstr "Ir para o conteúdo"
+
+#: modules/legacy/components/settings.php:306
+msgid "Style Settings"
+msgstr "Configurações de estilo"
+
+#: modules/legacy/components/settings.php:358
+msgid "This option will reset all your target links to open in the same window or tab."
+msgstr "Esta opção irá redefinir todos os seus links de destino, para que abram na mesma janela ou aba."
+
+#: modules/legacy/components/settings.php:66
+msgid "Title top of the toolbar (recommended)."
+msgstr "Título na parte superior da barra de ferramentas (recomendado)."
+
+#: modules/legacy/components/customizer.php:83
+msgid "Toggle Button Background"
+msgstr "Fundo do botão de alternância"
+
+#: modules/legacy/components/customizer.php:91
+msgid "Toggle Button Color"
+msgstr "Cor do botão de alternância"
+
+#: modules/legacy/components/settings.php:298
+msgid "Toolbar Settings"
+msgstr "Configurações da barra de ferramentas"
+
+#: modules/legacy/components/settings.php:48
+msgid "Visible Desktop"
+msgstr "Visível em desktop"
+
+#: modules/legacy/components/settings.php:50
+msgid "Visible Phone"
+msgstr "Visível em celular"
+
+#: modules/legacy/components/settings.php:49
+msgid "Visible Tablet"
+msgstr "Visível em tablet"
+
+#: modules/legacy/components/settings.php:249
+msgid "Link for sitemap page in your website. Leave blank to disable."
+msgstr "Link para a página do mapa do site do seu site. Deixe em branco para desativar."
+
+#: modules/legacy/components/settings.php:246
+msgid "Sitemap Link"
+msgstr "Link do mapa do site"
+
+#: modules/legacy/components/settings.php:237
+msgid "Sitemap Title"
+msgstr "Título do mapa do site"
+
+#: modules/legacy/components/settings.php:240 assets/build/admin.js:149
+#: assets/build/scanner.js:149 modules/settings/assets/js/constants/index.js:83
+#: modules/settings/assets/js/constants/index.js:84
+msgid "Sitemap"
+msgstr "Mapa do site"
+
+#: modules/legacy/components/settings.php:321
+msgid "Add Outline Focus"
+msgstr "Adicionar contorno de foco"
